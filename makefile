@@ -1,2 +1,2 @@
-eim: eim.c
-	gcc ./eim.c -lncursesw -o eim
+eim: eim.cpp
+	g++ ./eim.cpp -lncursesw -o eim
