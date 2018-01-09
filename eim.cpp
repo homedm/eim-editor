@@ -1,20 +1,54 @@
 #include <ncurses.h>
 #include <locale.h>
 
-#define MOVEMODE 0
-#define EDITMODE 1
-#define COMMANDMODE 2
-#define VISUALMODE 3
+enum KINDWINDOW
+{
+		COMMANDWINDOW,
+		BUFFERWINDOW
+};
+enum Mode
+{
+		MOVEMODE,
+		EDITMODE,
+		COMMANDMODE,
+		VISUALMODE,
+};
 
-class WindowClass
+// 他のウィンドウを管理するクラス
+class ScreenClass
+{
+		public:
+				ScreenClass()
+				{
+						initscr();
+						WINDOW *v_active_window, v_command_window;
+
+						// make window
+						*v_active_window = newwin(LINES-3, COLS, 0, 0); //main window
+						*v_command_window = newwin(2, COLS, LINES-1, 0); // commnad line window
+
+						BufferClass o_buffer_window[] = {
+								BufferClass(v_active_window, BUFFERWINDOW)
+						};
+						CommandLineClass o_command_line = CommandLineClass();
+				}
+
+		public:
+				~ScreenClass()
+				{
+						endwin(window_name);
+				}
+}
+// 個々のbufferについて管理するクラス
+class BufferClass
 {
 		// construter
 		public:
-				WindowClass()
+				BufferClass(WINDOW *window_name)
 				{
-						// windowの作成 {{{
-						// }}}
-						clear(); //画面表示
+						Mode mode = MOVEMODE;
+
+						wclear(window_name); //画面表示
 						cbreak();
 
 						setlocale(LC_ALL, ""); //マルチバイト文字列を有効にする
@@ -24,25 +58,39 @@ class WindowClass
 						noecho();
 				}
 
+		public:
+				~BufferClass()
+				{
+						// ScreenClassのo_buffer_windowからも消す処理を追加する.
+						delwin(window_name);
+				}
+
+
 				// modeを返す。
 				int check_mode(){
+						return mode;
 				}
 
 };
-int init_app()
+
+// command line についてのクラス
+Class CommandLineClass
 {
-		initscr();
-}
-int finish_app()
-{
-		endwin();
-}
+		public:
+				CommandLineClass(WINDOW *window_name)
+				{
+						wclear(window_name); // clear window
+						setlocale();
+				}
+		public:
+				~CommandLineClass()
+				{
+						endwin(window_name);
+				}
+};
+
 int main(int argc, char *argv[])
 {
-
-		init_app();
-		WindowClass window();
-
 		// main loop
 		while (true)
 		{
