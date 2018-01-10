@@ -21,14 +21,13 @@ class ScreenClass
 				ScreenClass()
 				{
 						initscr();
-						WINDOW *v_active_window, v_command_window;
 
 						// make window
-						*v_active_window = newwin(LINES-3, COLS, 0, 0); //main window
-						*v_command_window = newwin(2, COLS, LINES-1, 0); // commnad line window
+						WINDOW *v_active_window = newwin(LINES-3, COLS, 0, 0); //main window
+						WINDOW *v_command_window = newwin(3, COLS, LINES-2, 0); // commnad line window
 
-						BufferClass o_buffer_window[] = {
-								BufferClass(v_active_window, BUFFERWINDOW)
+						BufferClass o_buffer_container[] = {
+								BufferClass(v_active_window)
 						};
 						CommandLineClass o_command_line = CommandLineClass();
 				}
@@ -36,7 +35,11 @@ class ScreenClass
 		public:
 				~ScreenClass()
 				{
-						endwin(window_name);
+						endwin(this.window_name);
+				}
+
+				int split_window(){
+						//ウィンドウを均一に横に分割する
 				}
 }
 // 個々のbufferについて管理するクラス
@@ -62,13 +65,19 @@ class BufferClass
 				~BufferClass()
 				{
 						// ScreenClassのo_buffer_windowからも消す処理を追加する.
-						delwin(window_name);
+						delwin(this.window_name);
 				}
 
 
 				// modeを返す。
-				int check_mode(){
-						return mode;
+				int mode?(){
+						return this.mode;
+				}
+
+				// move_y, move_xだけ現在のカーソルの位置を移動させる.
+				int move_cursor(int move_y, int move_x){
+						wgetyx(window_name, cursor_y, cursor_x);
+						wmove(window_name, cursor_y + move_y, cursor_x + move_x);
 				}
 
 };
@@ -85,7 +94,7 @@ Class CommandLineClass
 		public:
 				~CommandLineClass()
 				{
-						endwin(window_name);
+						endwin(this.window_name);
 				}
 };
 

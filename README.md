@@ -1,5 +1,7 @@
 # eim editor
-Express Inside Motivation Editor
+Express Inside Material Editor
+
+like Vi IMproved
 
 # Requirement
 
@@ -12,3 +14,4 @@ Express Inside Motivation Editor
 ##License
 
 ## Author
+Taichi Watanabe
