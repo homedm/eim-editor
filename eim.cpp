@@ -1,60 +1,35 @@
+#include <curses.h>
 #include <ncurses.h>
 #include <locale.h>
 
-enum KINDWINDOW
+enum KINDWINDOW // {{{
 {
 		COMMANDWINDOW,
 		BUFFERWINDOW
-};
-enum Mode
+}; // }}}
+enum Mode // {{{
 {
 		MOVEMODE,
 		EDITMODE,
 		COMMANDMODE,
 		VISUALMODE,
-};
-
-// 他のウィンドウを管理するクラス
-class ScreenClass
-{
-		public:
-				ScreenClass()
-				{
-						initscr();
-
-						// make window
-						WINDOW *v_active_window = newwin(LINES-3, COLS, 0, 0); //main window
-						WINDOW *v_command_window = newwin(3, COLS, LINES-2, 0); // commnad line window
-
-						BufferClass o_buffer_container[] = {
-								BufferClass(v_active_window)
-						};
-						CommandLineClass o_command_line = CommandLineClass();
-				}
-
-		public:
-				~ScreenClass()
-				{
-						endwin(this.window_name);
-				}
-
-				int split_window(){
-						//ウィンドウを均一に横に分割する
-				}
-}
+}; // }}}
 // 個々のbufferについて管理するクラス
-class BufferClass
+class BufferClass // {{{
 {
+		private:
+				Mode mode;
+				WINDOW *window_id;
 		// construter
 		public:
 				BufferClass(WINDOW *window_name)
 				{
-						Mode mode = MOVEMODE;
+						mode = MOVEMODE;
+						window_id = window_name;
 
-						wclear(window_name); //画面表示
+						wclear(window_id); //画面表示
 						cbreak();
 
-						setlocale(LC_ALL, ""); //マルチバイト文字列を有効にする
 						start_color();
 
 						//キー入力された文字を表示しないモードにする。初めはmove modeのため。
@@ -65,45 +40,120 @@ class BufferClass
 				~BufferClass()
 				{
 						// ScreenClassのo_buffer_windowからも消す処理を追加する.
-						delwin(this.window_name);
+						delwin(this -> window_id);
 				}
 
 
-				// modeを返す。
-				int mode?(){
-						return this.mode;
+				// getter
+				const Mode& _mode() const{
+						return this -> mode;
+				}
+				// setter
+				void _mode(Mode setmode) {
+						this -> mode = setmode;
 				}
 
 				// move_y, move_xだけ現在のカーソルの位置を移動させる.
 				int move_cursor(int move_y, int move_x){
-						wgetyx(window_name, cursor_y, cursor_x);
-						wmove(window_name, cursor_y + move_y, cursor_x + move_x);
+						int cursor_y, cursor_x;
+						getmaxyx(this->window_id, cursor_y, cursor_x);
+						wmove(this->window_id, cursor_y + move_y, cursor_x + move_x);
 				}
 
-};
+				int command_branch(int key)
+				{
+						switch (key) {
+								case 'h':
+										// move left
+										move_cursor(0, -1); break;
+								case 'j':
+										//move down
+										move_cursor(1, 0); break;
+								case 'k':
+										// move up
+										move_cursor(-1, 0); break;
+								case 'l': 
+										// move right
+										move_cursor(0, 1); break;
+						}
+				}
+
+}; // }}}
 
 // command line についてのクラス
-Class CommandLineClass
+class CommandLineClass // {{{
 {
+		private:
+				WINDOW *window_id;
 		public:
 				CommandLineClass(WINDOW *window_name)
 				{
-						wclear(window_name); // clear window
-						setlocale();
+						window_id = window_name;
+						wclear(window_id); // clear window
 				}
 		public:
 				~CommandLineClass()
 				{
-						endwin(this.window_name);
+						delwin(this->window_id);
 				}
-};
+}; // }}}
+
+// 他のウィンドウを管理するクラス
+class ScreenClass // {{{
+{
+		private:
+				WINDOW *v_command_window;
+				BufferClass* o_buffer_container[10];
+				CommandLineClass* o_command_line;
+				int o_active_buffer_number;
+
+		public:
+				ScreenClass()
+				{
+						setlocale(LC_ALL, ""); //マルチバイト文字列を有効にする
+						initscr();
+
+						// make window
+						// commnad line window
+						v_command_window = newwin(3, COLS, LINES-2, 0);
+						//buffer windwo
+						o_buffer_container[0](newwin(LINES-3, COLS, 0, 0));
+						o_command_line = CommandLineClass();
+						o_active_buffer_number = 0;
+				}
+
+		public:
+				~ScreenClass()
+				{
+						endwin(); //ncurses終了
+				}
+
+				int split_window(){
+						//ウィンドウを均一に横に分割する
+				}
+
+				int command_branch(int key)
+				{
+						switch (key) {
+								case ':': 
+										// change command mode
+										this.o_command_line.command_branch(); break;
+								default: 
+										this.o_buffer_container[o_active_buffer_number].command_branch(key); break;
+						}
+				}
+}; // }}}
+
 
 int main(int argc, char *argv[])
 {
+		ScreenClass screen;
+		int key;
 		// main loop
 		while (true)
 		{
-				getch(); //キー入力
+				key = getch(); //キー入力
+				ScreenClass.command_branch(key);
 		}
 
 		return 0;
