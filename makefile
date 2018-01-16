@@ -1,2 +1,2 @@
 eim: eim.cpp
-	g++ ./eim.cpp -lncursesw -o eim
+	g++ eim.cpp ScreenClass.cpp BufferClass.cpp CommandLineClass.cpp -lncursesw -o eim
