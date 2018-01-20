@@ -7,17 +7,16 @@
 #include "BufferClass.h"
 #include "CommandLineClass.h"
 
-class ScreenClass 
+class EimEngineClass
 {
 		private:
-				WINDOW *v_command_window;
-				BufferClass* o_buffer_container[10];
-				CommandLineClass* o_command_line;
-				int o_active_buffer_number;
+				BufferClass buffer_container[10];
+				CommandLineClass command_line = CommandLineClass( newwin(3, COLS, LINES-2, 0) );
+				int active_buffer_number;
 
 		public:
-				ScreenClass();
-				~ScreenClass();
+				EimEngineClass();
+				~EimEngineClass();
 				int split_window();
 				int command_branch(int key);
 

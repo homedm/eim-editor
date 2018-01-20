@@ -1,33 +1,29 @@
-// ScreenClass.cpp
+// EimEngineClass.cpp
 #include "enum.h"
-#include "ScreenClass.h"
+#include "EimEngineClass.h"
 #include <ncurses.h>
 #include <locale.h>
 
-ScreenClass::ScreenClass()
+EimEngineClass::EimEngineClass()
 {
 		setlocale(LC_ALL, ""); //マルチバイト文字列を有効にする
 		initscr();
 
 		// make window
-		// commnad line window
-		v_command_window = newwin(3, COLS, LINES-2, 0);
-		//buffer windwo
-		o_buffer_container[0](newwin(LINES-3, COLS, 0, 0));
-		o_command_line = CommandLineClass();
-		o_active_buffer_number = 0;
+		buffer_container[0] = newwin(LINES-3, COLS, 0, 0);
+		active_buffer_number = 0;
 }
 
-ScreenClass::~ScreenClass()
+EimEngineClass::~EimEngineClass()
 {
 		endwin(); //ncurses終了
 }
 
-int ScreenClass::split_window(){
+int EimEngineClass::split_window(){
 		//ウィンドウを均一に横に分割する
 }
 
-int ScreenClass::command_branch(int key)
+int EimEngineClass::command_branch(int key)
 {
 		switch (key) {
 				case ':': 

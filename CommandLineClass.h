@@ -8,8 +8,9 @@ class CommandLineClass // {{{
 {
 		private:
 				WINDOW *window_id;
+
 		public:
-				CommandLineClass(WINDOW *window_name);
+				CommandLineClass();
 				~CommandLineClass();
 }; // }}}
 
