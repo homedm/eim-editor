@@ -11,12 +11,12 @@ class BufferClass // {{{
 		private:
 				Mode mode;
 				WINDOW *id;
-				std::list<char> textlist; // テキストファイルを一行ごとに保持する
+				std::list<std::string> textlist; // テキストファイルを一行ごとに保持する
 				std::string filename;
 		
 		// construter
 		public:
-				BufferClass();
+				BufferClass(WINDOW *window_name, std::string filename="");
 				~BufferClass();
 				Mode _get_mode();
 				void _set_mode(Mode setmode);

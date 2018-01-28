@@ -3,6 +3,8 @@
 #define _INC_SCREENCLASS
 
 #include <ncurses.h>
+#include <stdio.h>
+#include <memory>
 #include "enum.h"
 #include "BufferClass.h"
 #include "CommandLineClass.h"
@@ -10,9 +12,6 @@
 class EimEngineClass
 {
 		private:
-				BufferClass buffer_container[10];
-				CommandLineClass command_line = CommandLineClass( newwin(3, COLS, LINES-2, 0) );
-				int active_buffer_number;
 
 		public:
 				EimEngineClass();

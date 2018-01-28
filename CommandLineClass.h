@@ -10,7 +10,7 @@ class CommandLineClass // {{{
 				WINDOW *window_id;
 
 		public:
-				CommandLineClass();
+				CommandLineClass(WINDOW*);
 				~CommandLineClass();
 }; // }}}
 

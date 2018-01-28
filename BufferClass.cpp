@@ -3,9 +3,10 @@
 #include <list>
 #include <string>
 #include <fstream.h>
+#include <memory>
 #include "enum.h"
 
-BufferClass::BufferClass(WINDOW *window_name) // {{{
+BufferClass::BufferClass(WINDOW *window_name, std::string filename = "") // {{{
 {
 		mode = MOVEMODE;
 		window_id = window_name;
@@ -61,22 +62,28 @@ int BufferClass::command_branch(int key) // {{{
 } // }}}
 
 // ファイルをオープンし、それを一行ずつtextlistに入れる
-int BufferClass::readfile(std::string openfilename){ // {{{
+int BufferClass::readfile(std::string filename){ // {{{
 		std::ifstream ifs(openfilename); // file open {{{
 		if(!ifs) {
 				// faild to open file
 		}
 
+		textlist.push_back("top");
+
 		while (ifs.get(c)){
 				textlist.push_back(c); // 末尾に追加
 		}
+		
+		textlist.push_back("end");
 
 		ifs.close(); // file close }}}
 		return 0;
 } // }}}
 
 
-// draw
-int BufferClass::drawfile(){
+int BufferClass::write2file(std::filename){ // {{{
+		for(auto itr = lst.begin(); itr != textlist.end(); ++itr) {
+				printw(*itr << "\n");
+		}
 }
-
+// }}}
