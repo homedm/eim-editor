@@ -19,15 +19,17 @@ EimEngineClass::~EimEngineClass()
 
 int EimEngineClass::split_window(){
 		//ウィンドウを均一に横に分割する
+		return 0;
 }
 
 int EimEngineClass::command_branch(int key)
 {
 		switch (key) {
-				case ':': 
+				case ':':
 						// change command mode
 						command_line.command_branch(); break;
-				default: 
+				default:
 						buffer_container[active_buffer_number].command_branch(key); break;
 		}
+		return 0;
 }

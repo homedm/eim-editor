@@ -10,7 +10,7 @@
 
 int main(int argc, char *argv[])
 {
-		EimEngineClass eimEingine;
+		EimEngineClass eimEngine;
 
 		/* バッファ管理のためのコンテナを宣言 */
 		/* get()メソッドを使って参照する必要がある。 */
@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 		CommandLineClass command_line = CommandLineClass( newwin(3, COLS, LINES-2, 0) );
 
 		int key; // 入力キーを保持するための変数
-		
+
 		// main loop
 		while (true)
 		{

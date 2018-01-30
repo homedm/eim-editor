@@ -2,16 +2,14 @@
 #include <ncurses.h>
 #include <list>
 #include <string>
-#include <fstream.h>
 #include <memory>
 #include "enum.h"
 
-BufferClass::BufferClass(WINDOW *window_name, std::string filename = "") // {{{
+BufferClass::BufferClass(WINDOW *win_ptr) // {{{
 {
 		mode = MOVEMODE;
-		window_id = window_name;
 
-		wclear(window_id); //画面表示
+		wclear(win_ptr); //画面表示
 		cbreak();
 
 		start_color();
@@ -23,7 +21,7 @@ BufferClass::BufferClass(WINDOW *window_name, std::string filename = "") // {{{
 BufferClass::~BufferClass() // {{{
 {
 		// EimEngineClassのo_buffer_windowからも消す処理を追加する.
-		delwin(this -> window_id);
+		delwin(this -> win_ptr);
 } // }}}
 
 
@@ -39,8 +37,8 @@ void BufferClass::_set_mode(Mode setmode) {
 // move_y, move_xだけ現在のカーソルの位置を移動させる.
 int BufferClass::move_cursor(int move_y, int move_x){ // {{{
 		int cursor_y, cursor_x;
-		getmaxyx(this->window_id, cursor_y, cursor_x);
-		wmove(this->window_id, cursor_y + move_y, cursor_x + move_x);
+		getmaxyx(this->win_ptr, cursor_y, cursor_x);
+		wmove(this->win_ptr, cursor_y + move_y, cursor_x + move_x);
 } // }}}
 
 int BufferClass::command_branch(int key) // {{{
@@ -55,7 +53,7 @@ int BufferClass::command_branch(int key) // {{{
 				case 'k':
 						// move up
 						move_cursor(-1, 0); break;
-				case 'l': 
+				case 'l':
 						// move right
 						move_cursor(0, 1); break;
 		}
@@ -73,7 +71,7 @@ int BufferClass::readfile(std::string filename){ // {{{
 		while (ifs.get(c)){
 				textlist.push_back(c); // 末尾に追加
 		}
-		
+
 		textlist.push_back("end");
 
 		ifs.close(); // file close }}}
