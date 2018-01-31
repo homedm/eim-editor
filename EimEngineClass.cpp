@@ -11,6 +11,7 @@ EimEngineClass::EimEngineClass()
 		setlocale(LC_ALL, ""); //マルチバイト文字列を有効にする
 		initscr();
 
+		add_buffer();
 }
 
 EimEngineClass::~EimEngineClass()

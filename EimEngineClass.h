@@ -16,6 +16,9 @@ class EimEngineClass
 		/* コマンドラインスクリーンのクラスを宣言 */
 		CommandLineClass command_line = CommandLineClass( newwin(3, COLS, LINES-2, 0) );
 
+
+
+
 		/* バッファ管理のためのコンテナを宣言 */
 		/* get()メソッドを使って参照する必要がある。 */
 		std::vector<std::unique_ptr<BufferClass>> buff_container_ptr;
