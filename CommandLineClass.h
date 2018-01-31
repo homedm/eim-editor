@@ -12,6 +12,7 @@ class CommandLineClass // {{{
 		public:
 				CommandLineClass(WINDOW*);
 				~CommandLineClass();
+				int command_branch();
 }; // }}}
 
 #endif //INC_COMMANDLINECLASS

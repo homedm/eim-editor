@@ -1,9 +1,10 @@
 // EimEngineClass.cpp
-#include "enum.h"
-#include "EimEngineClass.h"
 #include <ncurses.h>
 #include <memory>
 #include <locale.h>
+#include "enum.h"
+#include "EimEngineClass.h"
+#include "BufferClass.h"
 
 EimEngineClass::EimEngineClass()
 {
@@ -15,6 +16,10 @@ EimEngineClass::EimEngineClass()
 EimEngineClass::~EimEngineClass()
 {
 		endwin(); //ncurses終了
+}
+
+int EimEngineClass::add_buffer(){
+		this->buff_container_ptr.push_back(   std::unique_ptr<BufferClass>(  new BufferClass( newwin(LINES-3, COLS, 0, 0) )  )   );
 }
 
 int EimEngineClass::split_window(){
@@ -29,7 +34,7 @@ int EimEngineClass::command_branch(int key)
 						// change command mode
 						command_line.command_branch(); break;
 				default:
-						buffer_container[active_buffer_number].command_branch(key); break;
+						buff_container_ptr[active_buffer_number].get()->command_branch(key); break;
 		}
 		return 0;
 }

@@ -13,3 +13,7 @@ CommandLineClass::~CommandLineClass()
 		delwin(this->window_id);
 }
 
+
+int CommandLineClass::command_branch()
+{
+}
