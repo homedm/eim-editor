@@ -7,12 +7,14 @@
 class CommandLineClass // {{{
 {
 		private:
-				WINDOW *window_id;
+				WINDOW *win_ptr;
 
 		public:
-				CommandLineClass(WINDOW*);
+				CommandLineClass();
 				~CommandLineClass();
 				int command_branch();
+				int setWindow();
+
 }; // }}}
 
 #endif //INC_COMMANDLINECLASS

@@ -11,8 +11,7 @@
 int main(int argc, char *argv[])
 {
 
-		EimEngineClass eimEngine;
-
+		EimEngineClass * eimEngine = new EimEngineClass();
 
 		int key; // 入力キーを保持するための変数
 
@@ -20,8 +19,9 @@ int main(int argc, char *argv[])
 		while (true)
 		{
 				key = getch(); //キー入力
-				eimEngine.command_branch(key);
+				eimEngine->command_branch(key);
 		}
 
+		delete eimEngine;
 		return 0;
 }

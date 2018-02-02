@@ -6,17 +6,14 @@
 #include <fstream>
 #include "enum.h"
 
-BufferClass::BufferClass(WINDOW *win_ptr) // {{{
+BufferClass::BufferClass(WINDOW *win) // {{{
 {
+	win_ptr = win;
 	mode = MOVEMODE;
 
 	wclear(win_ptr); //画面表示
-	cbreak();
 
-	start_color();
-
-	//キー入力された文字を表示しないモードにする。初めはmove modeのため。
-	noecho();
+	wprintw(win_ptr, "hello world");
 } // }}}
 
 BufferClass::~BufferClass() // {{{
