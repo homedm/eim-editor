@@ -3,6 +3,9 @@
 #define _INC_COMMANDLINECLASS
 #include <ncurses.h>
 #include "enum.h"
+#include <memory>
+#include <vector>
+#include "BufferClass.h"
 
 class CommandLineClass // {{{
 {
@@ -12,7 +15,7 @@ class CommandLineClass // {{{
 		public:
 				CommandLineClass();
 				~CommandLineClass();
-				int command_branch();
+				int command_branch(int); // active buffer number を渡す。
 				int setWindow();
 
 }; // }}}

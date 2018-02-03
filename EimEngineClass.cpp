@@ -13,10 +13,11 @@ EimEngineClass::EimEngineClass()
 	cbreak();
 	//キー入力された文字を表示しないモードにする。初めはmove modeのため。
 	noecho();
+	keypad(stdscr, TRUE);
 
 	// set color {{{
 	start_color();
-	init_pair(1, COLOR_RED, COLOR_GREEN);
+	init_pair(1, COLOR_WHITE, COLOR_BLACK);
 	// }}}
 
 	// make commandline window buffer window
@@ -46,7 +47,11 @@ int EimEngineClass::command_branch(int key)
 	switch (key) {
 		case ':':
 			// change command mode
-			command_line.command_branch(); break;
+			if(command_line.command_branch(active_buffer_number) == EXITPROGRAM){
+				// exit program
+				delete this;
+			}
+			; break;
 		default:
 			buff_container_ptr[active_buffer_number].get()->command_branch(key); break;
 	}

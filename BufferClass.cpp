@@ -11,9 +11,8 @@ BufferClass::BufferClass(WINDOW *win) // {{{
 	win_ptr = win;
 	mode = MOVEMODE;
 
-	wclear(win_ptr); //画面表示
+	wclear(win_ptr); // clear buffer window
 
-	wprintw(win_ptr, "hello world");
 } // }}}
 
 BufferClass::~BufferClass() // {{{
@@ -47,8 +46,6 @@ void BufferClass::_set_filename(std::string set_filename){
 // }}}
 // }}}
 
-
-
 // move_y, move_xだけ現在のカーソルの位置を移動させる.
 int BufferClass::move_cursor(int move_y, int move_x){ // {{{
 	int cursor_y, cursor_x;
@@ -72,6 +69,8 @@ int BufferClass::command_branch(int const key) // {{{
 			// move right
 			move_cursor(0, 1); break;
 	}
+
+	wrefresh(win_ptr);
 } // }}}
 
 // ファイルをオープンし、それを一行ずつtextlistに入れる
