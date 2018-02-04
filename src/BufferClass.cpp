@@ -1,10 +1,12 @@
-#include "BufferClass.h"
+// BufferClass.cpp --- bufferのデータ管理
+#include "../include/BufferClass.h"
+#include <locale.h>
 #include <ncurses.h>
 #include <list>
 #include <string>
 #include <memory>
 #include <fstream>
-#include "enum.h"
+#include "../include/enum.h"
 
 BufferClass::BufferClass(WINDOW *win) // {{{
 {

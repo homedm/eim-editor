@@ -1,7 +1,7 @@
 // 他のウィンドウを管理するクラス
 #ifndef _INC_SCREENCLASS
 #define _INC_SCREENCLASS
-
+#include <curses.h>
 #include <ncurses.h>
 #include <stdio.h>
 #include <memory>

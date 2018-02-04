@@ -1,16 +1,14 @@
-#include <curses.h>
 #include <ncurses.h>
 #include <locale.h>
 #include <vector>
 #include <memory>
-#include "enum.h"
-#include "BufferClass.h"
-#include "CommandLineClass.h"
-#include "EimEngineClass.h"
+#include "../include/enum.h"
+#include "../include/BufferClass.h"
+#include "../include/CommandLineClass.h"
+#include "../include/EimEngineClass.h"
 
 int main(int argc, char *argv[])
 {
-
 		EimEngineClass * eimEngine = new EimEngineClass();
 
 		int key; // 入力キーを保持するための変数

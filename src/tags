@@ -1,0 +1,34 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+BufferClass	BufferClass.cpp	/^BufferClass::BufferClass(WINDOW *win) \/\/ {{{$/;"	f	class:BufferClass
+CC	makefile	/^CC = g++$/;"	m
+CFLAGS	makefile	/^CFLAGS = -std=c++11$/;"	m
+CommandLineClass	CommandLineClass.cpp	/^CommandLineClass::CommandLineClass()$/;"	f	class:CommandLineClass
+DEST	makefile	/^DEST = \/usr\/local\/bin$/;"	m
+EimEngineClass	EimEngineClass.cpp	/^EimEngineClass::EimEngineClass()$/;"	f	class:EimEngineClass
+LIBS	makefile	/^LIBS = -lncursesw$/;"	m
+OBJDIR	makefile	/^OBJDIR = .\/obj$/;"	m
+OBJS	makefile	/^OBJS = eim.o EimEngineClass.o BufferClass.o CommandLineClass.o$/;"	m
+PROGRAM	makefile	/^PROGRAM = ..\/bin\/eim$/;"	m
+_get_filename	BufferClass.cpp	/^std::string BufferClass::_get_filename(){$/;"	f	class:BufferClass
+_get_id	BufferClass.cpp	/^WINDOW* BufferClass::_get_id(){$/;"	f	class:BufferClass
+_get_mode	BufferClass.cpp	/^Mode BufferClass::_get_mode(){$/;"	f	class:BufferClass
+_set_filename	BufferClass.cpp	/^void BufferClass::_set_filename(std::string set_filename){$/;"	f	class:BufferClass
+_set_mode	BufferClass.cpp	/^void BufferClass::_set_mode(Mode setmode) {$/;"	f	class:BufferClass
+add_buffer	EimEngineClass.cpp	/^int EimEngineClass::add_buffer(){$/;"	f	class:EimEngineClass
+command_branch	BufferClass.cpp	/^int BufferClass::command_branch(int const key) \/\/ {{{$/;"	f	class:BufferClass
+command_branch	CommandLineClass.cpp	/^int CommandLineClass::command_branch(int active_buffer_number)$/;"	f	class:CommandLineClass
+command_branch	EimEngineClass.cpp	/^int EimEngineClass::command_branch(int key)$/;"	f	class:EimEngineClass
+main	eim.cpp	/^int main(int argc, char *argv[])$/;"	f
+move_cursor	BufferClass.cpp	/^int BufferClass::move_cursor(int move_y, int move_x){ \/\/ {{{$/;"	f	class:BufferClass
+readfile	BufferClass.cpp	/^int BufferClass::readfile(std::string const filename){ \/\/ {{{$/;"	f	class:BufferClass
+setWindow	CommandLineClass.cpp	/^int CommandLineClass::setWindow(){$/;"	f	class:CommandLineClass
+split_window	EimEngineClass.cpp	/^int EimEngineClass::split_window(){$/;"	f	class:EimEngineClass
+write2file	BufferClass.cpp	/^int BufferClass::write2file(std::string const filename){ \/\/ {{{$/;"	f	class:BufferClass
+~BufferClass	BufferClass.cpp	/^BufferClass::~BufferClass() \/\/ {{{$/;"	f	class:BufferClass
+~CommandLineClass	CommandLineClass.cpp	/^CommandLineClass::~CommandLineClass()$/;"	f	class:CommandLineClass
+~EimEngineClass	EimEngineClass.cpp	/^EimEngineClass::~EimEngineClass()$/;"	f	class:EimEngineClass

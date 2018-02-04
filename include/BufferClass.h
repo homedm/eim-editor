@@ -2,6 +2,7 @@
 #ifndef _INC_BUFFERCLASS
 #define _INC_BUFFERCLASS
 #include <ncurses.h>
+#include <curses.h>
 #include <string>
 #include <list>
 #include "enum.h"

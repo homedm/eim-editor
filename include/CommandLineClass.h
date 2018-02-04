@@ -2,6 +2,7 @@
 #ifndef _INC_COMMANDLINECLASS
 #define _INC_COMMANDLINECLASS
 #include <ncurses.h>
+#include <curses.h>
 #include "enum.h"
 #include <memory>
 #include <vector>

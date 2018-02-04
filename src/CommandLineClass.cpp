@@ -1,7 +1,9 @@
-#include "CommandLineClass.h"
-#include "BufferClass.h"
+// CommandLineClass.cpp --- Commandlineに入力されたコマンドの処理
+#include "../include/CommandLineClass.h"
+#include "../include/BufferClass.h"
 #include <ncurses.h>
-#include "enum.h"
+#include <locale.h>
+#include "../include/enum.h"
 #include <cstdlib>
 #include <vector>
 #include <memory>
@@ -26,18 +28,21 @@ int CommandLineClass::setWindow(){
 int CommandLineClass::command_branch(int active_buffer_number)
 {
 	// focus on command line window
-	move(LINES-2, 0);
-	nocbreak();
-	echo();
 
 	int key;
 	while(true){
 		key = getch();
 
-		if ( key == KEY_ESC){
-			return EXITPROGRAM;
-		} else {
+		if ( key == KEY_ESC)
+		{
+		}
+		else
+		{
 			waddch(win_ptr, (char)key);
+		}
+		if ( key == KEY_ENTER )
+		{
+			return EXITPROGRAM;
 		}
 		wrefresh(win_ptr);
 	}
