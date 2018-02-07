@@ -1,12 +1,12 @@
 // BufferClass.cpp --- bufferのデータ管理
-#include "../include/BufferClass.h"
+#include "../include/BufferClass.hpp"
 #include <locale.h>
 #include <ncurses.h>
 #include <list>
 #include <string>
 #include <memory>
 #include <fstream>
-#include "../include/enum.h"
+#include "../include/enum.hpp"
 
 BufferClass::BufferClass(WINDOW *win) // {{{
 {
@@ -58,6 +58,7 @@ int BufferClass::move_cursor(int move_y, int move_x){ // {{{
 int BufferClass::command_branch(int const key) // {{{
 {
 	switch (key) {
+		// move command {{{
 		case 'h':
 			// move left
 			move_cursor(0, -1); break;
@@ -70,10 +71,34 @@ int BufferClass::command_branch(int const key) // {{{
 		case 'l':
 			// move right
 			move_cursor(0, 1); break;
+		// }}}
+		case 'i':
+			// until tap ESC key
+			printkey();
+			break;
 	}
 
 	wrefresh(win_ptr);
 } // }}}
+
+// print key
+int BufferClass::printkey()
+{
+	int key;
+	while (true)
+	{
+		key = getch();
+		switch( key )
+		{
+			case KEY_ESC:
+				return 0;
+				break;
+			default:
+				waddch(win_ptr, (char)key);
+		}
+		wrefresh(win_ptr);
+	}
+}
 
 // ファイルをオープンし、それを一行ずつtextlistに入れる
 int BufferClass::readfile(std::string const filename){ // {{{

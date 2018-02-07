@@ -6,9 +6,9 @@
 #include <stdio.h>
 #include <memory>
 #include <vector>
-#include "enum.h"
-#include "BufferClass.h"
-#include "CommandLineClass.h"
+#include "enum.hpp"
+#include "BufferClass.hpp"
+#include "CommandLineClass.hpp"
 
 class EimEngineClass
 {

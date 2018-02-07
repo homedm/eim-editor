@@ -1,9 +1,9 @@
 // CommandLineClass.cpp --- Commandlineに入力されたコマンドの処理
-#include "../include/CommandLineClass.h"
-#include "../include/BufferClass.h"
+#include "../include/CommandLineClass.hpp"
+#include "../include/BufferClass.hpp"
 #include <ncurses.h>
 #include <locale.h>
-#include "../include/enum.h"
+#include "../include/enum.hpp"
 #include <cstdlib>
 #include <vector>
 #include <memory>
@@ -35,6 +35,7 @@ int CommandLineClass::command_branch(int active_buffer_number)
 
 		if ( key == KEY_ESC)
 		{
+			return CHANGEMOVEMODE;
 		}
 		else
 		{
@@ -42,6 +43,7 @@ int CommandLineClass::command_branch(int active_buffer_number)
 		}
 		if ( key == KEY_ENTER )
 		{
+			waddch(win_ptr, 'h');
 			return EXITPROGRAM;
 		}
 		wrefresh(win_ptr);

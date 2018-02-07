@@ -5,7 +5,7 @@
 #include <curses.h>
 #include <string>
 #include <list>
-#include "enum.h"
+#include "enum.hpp"
 
 class BufferClass // {{{
 {
@@ -32,6 +32,7 @@ class BufferClass // {{{
 
 				// cursor movement
 				int move_cursor(int move_y, int move_x);
+				int printkey();
 
 				int command_branch(int key);
 

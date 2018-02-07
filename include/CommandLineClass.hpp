@@ -3,10 +3,10 @@
 #define _INC_COMMANDLINECLASS
 #include <ncurses.h>
 #include <curses.h>
-#include "enum.h"
+#include "enum.hpp"
 #include <memory>
 #include <vector>
-#include "BufferClass.h"
+#include "BufferClass.hpp"
 
 class CommandLineClass // {{{
 {

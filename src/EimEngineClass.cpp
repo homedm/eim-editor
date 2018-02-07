@@ -3,9 +3,9 @@
 #include <locale.h>
 #include <memory>
 #include <locale.h>
-#include "../include/enum.h"
-#include "../include/EimEngineClass.h"
-#include "../include/BufferClass.h"
+#include "../include/enum.hpp"
+#include "../include/EimEngineClass.hpp"
+#include "../include/BufferClass.hpp"
 
 EimEngineClass::EimEngineClass()
 {
@@ -34,6 +34,11 @@ EimEngineClass::EimEngineClass()
 
 EimEngineClass::~EimEngineClass()
 {
+	// バッファーオブジェクトを開放する。
+	for(int i=0;buff_container_ptr.size(); i++)
+	{
+		delete buff_container_ptr[i].get();
+	}
 	endwin(); //ncurses終了
 }
 
@@ -54,13 +59,23 @@ int EimEngineClass::command_branch(int key)
 		case ':':
 			// change command mode
 			buff_container_ptr[active_buffer_number].get()->_set_mode(COMMANDMODE);
-			if(command_line.command_branch(active_buffer_number) == EXITPROGRAM){
-				// exit program
-				delete this;
+			switch(command_line.command_branch(active_buffer_number))
+			{
+				case EXITPROGRAM:
+					// exit program
+					delete this;
+					break;
+
+				case CHANGEMOVEMODE:
+					buff_container_ptr[active_buffer_number].get()->_set_mode(MOVEMODE);
+					break;
+
 			}
-			; break;
+			break;
+			// move mode command branch
 		default:
-			buff_container_ptr[active_buffer_number].get()->command_branch(key); break;
+			buff_container_ptr[active_buffer_number].get()->command_branch(key);
+			break;
 	}
 	buff_container_ptr[active_buffer_number].get()->_set_mode(MOVEMODE);
 	return 0;

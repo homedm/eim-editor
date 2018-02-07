@@ -2,10 +2,10 @@
 #include <locale.h>
 #include <vector>
 #include <memory>
-#include "../include/enum.h"
-#include "../include/BufferClass.h"
-#include "../include/CommandLineClass.h"
-#include "../include/EimEngineClass.h"
+#include "../include/enum.hpp"
+#include "../include/BufferClass.hpp"
+#include "../include/CommandLineClass.hpp"
+#include "../include/EimEngineClass.hpp"
 
 int main(int argc, char *argv[])
 {
