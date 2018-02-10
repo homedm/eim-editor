@@ -14,6 +14,7 @@ BufferClass::BufferClass(WINDOW *win) // {{{
 	mode = MOVEMODE;
 
 	wclear(win_ptr); // clear buffer window
+	cursor_x = 0; cursor_y = 0;
 
 } // }}}
 
@@ -46,13 +47,30 @@ void BufferClass::_set_filename(std::string set_filename){
 	this -> filename = set_filename;
 }
 // }}}
+
+// get cursor_? {{{
+int BufferClass::_get_cursor_x(){
+	return cursor_x;
+}
+int BufferClass::_get_cursor_y(){
+	return cursor_y;
+}
+void BufferClass::_set_cursor_x(int set_cursor_x){
+	this -> cursor_x = set_cursor_x;
+}
+void BufferClass::_set_cursor_y(int set_cursor_y){
+	this -> cursor_y = set_cursor_y;
+}
+// }}}
 // }}}
 
 // move_y, move_xだけ現在のカーソルの位置を移動させる.
-int BufferClass::move_cursor(int move_y, int move_x){ // {{{
-	int cursor_y, cursor_x;
-	getmaxyx(this->win_ptr, cursor_y, cursor_x);
-	wmove(this->win_ptr, cursor_y + move_y, cursor_x + move_x);
+int BufferClass::move_cursor(int move_x, int move_y){ // {{{
+	wchgat(win_ptr, 1, A_NORMAL, 0, 0);
+	cursor_x += move_x;
+	cursor_y += move_y;
+	wmove(win_ptr, cursor_y, cursor_x);
+	wchgat(win_ptr, 2, A_STANDOUT, 0, 0);
 } // }}}
 
 int BufferClass::command_branch(int const key) // {{{
@@ -61,16 +79,16 @@ int BufferClass::command_branch(int const key) // {{{
 		// move command {{{
 		case 'h':
 			// move left
-			move_cursor(0, -1); break;
+			move_cursor(-1, 0); break;
 		case 'j':
 			//move down
-			move_cursor(1, 0); break;
+			move_cursor(0, 1); break;
 		case 'k':
 			// move up
-			move_cursor(-1, 0); break;
+			move_cursor(0, -1); break;
 		case 'l':
 			// move right
-			move_cursor(0, 1); break;
+			move_cursor(1, 0); break;
 		// }}}
 		case 'i':
 			// until tap ESC key

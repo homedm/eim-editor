@@ -14,6 +14,7 @@ class BufferClass // {{{
 				WINDOW *win_ptr;
 				std::list<std::string> textlist; // テキストファイルを一行ごとに保持する
 				std::string filename;
+				int cursor_x, cursor_y; // the position in window
 
 		// construter
 		public:
@@ -28,6 +29,11 @@ class BufferClass // {{{
 
 				std::string _get_filename();
 				void _set_filename(std::string);
+
+				int _get_cursor_x();
+				int _get_cursor_y();
+				void _set_cursor_x(int);
+				void _set_cursor_y(int);
 				// }}}
 
 				// cursor movement
