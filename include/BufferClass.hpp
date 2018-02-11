@@ -39,6 +39,7 @@ class BufferClass // {{{
 				// cursor movement
 				int move_cursor(int move_y, int move_x);
 				int printkey();
+				int printkey(int);
 
 				int command_branch(int key);
 

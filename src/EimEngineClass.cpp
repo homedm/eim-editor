@@ -17,13 +17,15 @@ EimEngineClass::EimEngineClass()
 	keypad(stdscr, TRUE);
 
 	// set color {{{
-	start_color();
-	// init_pair(number, foreground, background);
-	init_pair(1, COLOR_WHITE, COLOR_BLACK);
-	init_pair(2, COLOR_BLACK, COLOR_WHITE);
-	init_pair(3, COLOR_GREEN, COLOR_RED);
-	curs_set(1);
+	if(has_colors()){
+		start_color();
+		// init_pair(number, foreground, background);
+		init_pair(1, COLOR_WHITE, COLOR_BLACK);
+		init_pair(2, COLOR_BLACK, COLOR_WHITE);
+		init_pair(3, COLOR_GREEN, COLOR_RED);
+	}
 	// }}}
+	curs_set(1);
 
 	// make commandline window buffer window
 	add_buffer();

@@ -1,12 +1,12 @@
 // BufferClass.cpp --- bufferのデータ管理
 #include "../include/BufferClass.hpp"
+#include "../include/enum.hpp"
 #include <locale.h>
 #include <ncurses.h>
 #include <list>
 #include <string>
 #include <memory>
 #include <fstream>
-#include "../include/enum.hpp"
 
 BufferClass::BufferClass(WINDOW *win) // {{{
 {
@@ -66,9 +66,10 @@ void BufferClass::_set_cursor_y(int set_cursor_y){
 
 // move_y, move_xだけ現在のカーソルの位置を移動させる.
 int BufferClass::move_cursor(int move_x, int move_y){ // {{{
-	wchgat(win_ptr, 1, A_NORMAL, 0, NULL);
-	if(cursor_x + move_x <= COLS && cursor_x + move_x >= 0) cursor_x += move_x;
-	if(cursor_y + move_y <= LINES && cursor_y + move_y >= 0) cursor_y += move_y;
+	int lines, cols;
+	getmaxyx(win_ptr, lines, cols);
+	if(cursor_x + move_x <= cols-1 && cursor_x + move_x >= 0) cursor_x += move_x;
+	if(cursor_y + move_y <= lines-1 && cursor_y + move_y >= 0) cursor_y += move_y;
 	wmove(win_ptr, cursor_y, cursor_x);
 } // }}}
 
@@ -88,11 +89,20 @@ int BufferClass::command_branch(int const key) // {{{
 		case 'l':
 			// move right
 			move_cursor(1, 0); break;
+		case '^':
+			move_cursor(-cursor_x, 0);break;
 		// }}}
+		// print command {{{
 		case 'i':
-			// until tap ESC key
-			printkey();
-			break;
+			printkey(); break;
+		case 'a':
+			move_cursor(-1, 0);
+			printkey(); break;
+		case 'R':
+			int lines, cols;
+			getmaxyx(win_ptr, lines, cols);
+			printkey(cols - cursor_x); break;
+		// }}}
 	}
 
 	wrefresh(win_ptr);
@@ -111,10 +121,31 @@ int BufferClass::printkey()
 				return 0;
 				break;
 			default:
+				winsch(win_ptr, (char)key);
+				move_cursor(1, 0);
+		}
+		wrefresh(win_ptr);
+	}
+}
+// str文字だけ上書きする
+int BufferClass::printkey(int str)
+{
+	int key;
+	int i = 0;
+	while ( i < str )
+	{
+		key = getch();
+		switch( key )
+		{
+			case KEY_ESC:
+				return 0;
+				break;
+			default:
 				waddch(win_ptr, (char)key);
 				move_cursor(1, 0);
 		}
 		wrefresh(win_ptr);
+		++i;
 	}
 }
 
