@@ -33,9 +33,13 @@ _INC_BUFFERCLASS	include/BufferClass.hpp	3;"	d
 _INC_COMMANDLINECLASS	include/CommandLineClass.hpp	3;"	d
 _INC_ENUM	include/enum.hpp	2;"	d
 _INC_SCREENCLASS	include/EimEngineClass.hpp	3;"	d
+_get_cursor_x	src/BufferClass.cpp	/^int BufferClass::_get_cursor_x(){$/;"	f	class:BufferClass
+_get_cursor_y	src/BufferClass.cpp	/^int BufferClass::_get_cursor_y(){$/;"	f	class:BufferClass
 _get_filename	src/BufferClass.cpp	/^std::string BufferClass::_get_filename(){$/;"	f	class:BufferClass
 _get_id	src/BufferClass.cpp	/^WINDOW* BufferClass::_get_id(){$/;"	f	class:BufferClass
 _get_mode	src/BufferClass.cpp	/^Mode BufferClass::_get_mode(){$/;"	f	class:BufferClass
+_set_cursor_x	src/BufferClass.cpp	/^void BufferClass::_set_cursor_x(int set_cursor_x){$/;"	f	class:BufferClass
+_set_cursor_y	src/BufferClass.cpp	/^void BufferClass::_set_cursor_y(int set_cursor_y){$/;"	f	class:BufferClass
 _set_filename	src/BufferClass.cpp	/^void BufferClass::_set_filename(std::string set_filename){$/;"	f	class:BufferClass
 _set_mode	src/BufferClass.cpp	/^void BufferClass::_set_mode(Mode setmode) {$/;"	f	class:BufferClass
 active_buffer_number	include/EimEngineClass.hpp	/^		int active_buffer_number;$/;"	m	class:EimEngineClass
@@ -45,10 +49,12 @@ command_branch	src/BufferClass.cpp	/^int BufferClass::command_branch(int const k
 command_branch	src/CommandLineClass.cpp	/^int CommandLineClass::command_branch(int active_buffer_number)$/;"	f	class:CommandLineClass
 command_branch	src/EimEngineClass.cpp	/^int EimEngineClass::command_branch(int key)$/;"	f	class:EimEngineClass
 command_line	include/EimEngineClass.hpp	/^		CommandLineClass command_line;$/;"	m	class:EimEngineClass
+cursor_x	include/BufferClass.hpp	/^				int cursor_x, cursor_y; \/\/ the position in window$/;"	m	class:BufferClass
+cursor_y	include/BufferClass.hpp	/^				int cursor_x, cursor_y; \/\/ the position in window$/;"	m	class:BufferClass
 filename	include/BufferClass.hpp	/^				std::string filename;$/;"	m	class:BufferClass
 main	src/eim.cpp	/^int main(int argc, char *argv[])$/;"	f
 mode	include/BufferClass.hpp	/^				Mode mode;$/;"	m	class:BufferClass
-move_cursor	src/BufferClass.cpp	/^int BufferClass::move_cursor(int move_y, int move_x){ \/\/ {{{$/;"	f	class:BufferClass
+move_cursor	src/BufferClass.cpp	/^int BufferClass::move_cursor(int move_x, int move_y){ \/\/ {{{$/;"	f	class:BufferClass
 printkey	src/BufferClass.cpp	/^int BufferClass::printkey()$/;"	f	class:BufferClass
 readfile	src/BufferClass.cpp	/^int BufferClass::readfile(std::string const filename){ \/\/ {{{$/;"	f	class:BufferClass
 setWindow	src/CommandLineClass.cpp	/^int CommandLineClass::setWindow(){$/;"	f	class:CommandLineClass

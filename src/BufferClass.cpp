@@ -14,37 +14,37 @@ BufferClass::BufferClass(WINDOW *win) // {{{
 	mode = MOVEMODE;
 
 	wclear(win_ptr); // clear buffer window
-	cursor_x = 0; cursor_y = 0;
 
+	cursor_x = 0; cursor_y = 0;
 } // }}}
 
 BufferClass::~BufferClass() // {{{
 {
 	// EimEngineClassのo_buffer_windowからも消す処理を追加する.
-	delwin(this -> win_ptr);
+	delwin(win_ptr);
 } // }}}
 
 // getter and setter {{{
 // mode {{{
 Mode BufferClass::_get_mode(){
-	return this -> mode;
+	return mode;
 }
 void BufferClass::_set_mode(Mode setmode) {
-	this -> mode = setmode;
+	mode = setmode;
 } // }}}
 
 // window_id {{{
 WINDOW* BufferClass::_get_id(){
-	return this -> win_ptr;
+	return win_ptr;
 }
 // }}}
 
 // filename {{{
 std::string BufferClass::_get_filename(){
-	return this -> filename;
+	return filename;
 }
 void BufferClass::_set_filename(std::string set_filename){
-	this -> filename = set_filename;
+	filename = set_filename;
 }
 // }}}
 
@@ -56,21 +56,20 @@ int BufferClass::_get_cursor_y(){
 	return cursor_y;
 }
 void BufferClass::_set_cursor_x(int set_cursor_x){
-	this -> cursor_x = set_cursor_x;
+	cursor_x = set_cursor_x;
 }
 void BufferClass::_set_cursor_y(int set_cursor_y){
-	this -> cursor_y = set_cursor_y;
+	cursor_y = set_cursor_y;
 }
 // }}}
 // }}}
 
 // move_y, move_xだけ現在のカーソルの位置を移動させる.
 int BufferClass::move_cursor(int move_x, int move_y){ // {{{
-	wchgat(win_ptr, 1, A_NORMAL, 0, 0);
-	cursor_x += move_x;
-	cursor_y += move_y;
+	wchgat(win_ptr, 1, A_NORMAL, 0, NULL);
+	if(cursor_x + move_x <= COLS && cursor_x + move_x >= 0) cursor_x += move_x;
+	if(cursor_y + move_y <= LINES && cursor_y + move_y >= 0) cursor_y += move_y;
 	wmove(win_ptr, cursor_y, cursor_x);
-	wchgat(win_ptr, 2, A_STANDOUT, 0, 0);
 } // }}}
 
 int BufferClass::command_branch(int const key) // {{{
@@ -113,6 +112,7 @@ int BufferClass::printkey()
 				break;
 			default:
 				waddch(win_ptr, (char)key);
+				move_cursor(1, 0);
 		}
 		wrefresh(win_ptr);
 	}
@@ -125,7 +125,7 @@ int BufferClass::readfile(std::string const filename){ // {{{
 	std::string str;
 
 	// textlistの最後尾から順に読み込んだテキストを格納する
-	auto itr = this -> textlist.end();
+	auto itr = textlist.end();
 	while (getline(inputf, str)) {
 		itr = textlist.insert(itr, str);
 		++itr;
@@ -137,7 +137,7 @@ int BufferClass::readfile(std::string const filename){ // {{{
 int BufferClass::write2file(std::string const filename){ // {{{
 	std::ofstream outputf(filename);
 
-	for(auto itr = this -> textlist.begin(); itr != this->textlist.end(); ++itr) {
+	for(auto itr = textlist.begin(); itr != textlist.end(); ++itr) {
 		outputf << *itr;
 		++itr;
 	}

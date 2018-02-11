@@ -18,10 +18,11 @@ EimEngineClass::EimEngineClass()
 
 	// set color {{{
 	start_color();
+	// init_pair(number, foreground, background);
 	init_pair(1, COLOR_WHITE, COLOR_BLACK);
 	init_pair(2, COLOR_BLACK, COLOR_WHITE);
 	init_pair(3, COLOR_GREEN, COLOR_RED);
-	curs_set(0);
+	curs_set(1);
 	// }}}
 
 	// make commandline window buffer window

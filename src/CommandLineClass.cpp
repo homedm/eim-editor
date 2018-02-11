@@ -14,7 +14,7 @@ CommandLineClass::CommandLineClass()
 
 CommandLineClass::~CommandLineClass()
 {
-	delwin(this->win_ptr);
+	delwin(win_ptr);
 }
 
 int CommandLineClass::setWindow(){
