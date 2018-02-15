@@ -39,11 +39,13 @@ EimEngineClass::EimEngineClass()
 
 EimEngineClass::~EimEngineClass()
 {
+	flash();
 	// バッファーオブジェクトを開放する。
 	for(int i=0;buff_container_ptr.size(); i++)
 	{
 		delete buff_container_ptr[i].get();
 	}
+	command_line.~CommandLineClass();
 	endwin(); //ncurses終了
 }
 
@@ -74,7 +76,9 @@ int EimEngineClass::command_branch(const int key)
 			}
 			else
 			{
-				// コマンド失敗時
+				// プログラム終了
+				flash();
+				delete this;
 			}
 			// change mode to move mode
 			buff_container_ptr[active_buffer_number].get()->_set_mode(MOVEMODE);

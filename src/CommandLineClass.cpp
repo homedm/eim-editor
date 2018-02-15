@@ -7,6 +7,11 @@
 #include <cstdlib>
 #include <vector>
 #include <memory>
+#include <string.h>
+
+#define COMMANDLINEMAX 100
+#define COMMANDMAX 20
+#define OPTINOMAX 80
 
 CommandLineClass::CommandLineClass()
 {
@@ -30,9 +35,11 @@ int CommandLineClass::command_branch( std::shared_ptr<BufferClass> buffer )
 {
 	// focus on command line window
 	wmove(win_ptr, 0, 0);
+	wclear(win_ptr);
 	wrefresh(win_ptr);
 
-	int key;
+	char str[COMMANDLINEMAX], command[COMMANDMAX], option[OPTINOMAX];
+	int key, i=0, iscmd=0;
 	while(true){
 		key = getch();
 
@@ -41,30 +48,58 @@ int CommandLineClass::command_branch( std::shared_ptr<BufferClass> buffer )
 				// return move mode
 				return SUCCESS;
 				break;
-			case KEY_ENTER:
+				// case KEY_ENTER:
+			case '\n':
 				// コマンドの入力完了
 				// Enter key
-				read_command();
+				// コマンドラインに入力されたコマンドを読み込む {{{
+				// 入力された文字列を分割する
+				parse(str, command, option);
+				if(strcmp(command,"q") || strcmp(command, "quit"))
+				{
+					// プログラムを完全に終了させる
+					return EXITPROGRAM;
+
+				}
+				else if( strcmp(command, "e") || strcmp(command, "edit") )
+				{
+					// 新しくファイルを開いて、バッファーを増やす
+				}
+				// }}}
+
+				wclrtobot(win_ptr);
+				wrefresh(win_ptr);
+
+				return SUCCESS;
 				break;
 			default :
 				waddch(win_ptr, (char)key);
-				wrefresh(win_ptr);
+				// 入力された文字を保持する
+				if( i < COMMANDLINEMAX)
+				{
+					str[i] = key;
+					i++;
+				}
 		}
+		wrefresh(win_ptr);
 	}
 	return SUCCESS;
 }
 
-int CommandLineClass::read_command()
+int CommandLineClass::parse(const char *str, char *command, char *option)
 {
-	// コマンドラインに入力されたコマンドを読み込む {{{
-	char command[20];
-	wmove(win_ptr, 0, 0);
-	wgetnstr(win_ptr, command, 20);
-	if(command == "q") {
-		return SUCCESS;
+	int i;
+	for(i=0; i < strlen(str); i++)
+	{
+		if (str[i] == ' ') { i++; break; }
+		command[i] = str[i];
 	}
-	else if(command == "e" || command == "edit") {
+	// iはoptionの頭の位置を指す
+	int j = 0;
+	for(; i < strlen(str); i++)
+	{
+		option[j] = str[i];
+		j++;
 	}
-	// }}}
-	wclear(win_ptr);
+	return SUCCESS;
 }

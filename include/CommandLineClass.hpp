@@ -20,6 +20,7 @@ class CommandLineClass // {{{
 				int command_branch(std::shared_ptr<BufferClass>); // active buffer number を渡す。
 				int setWindow();
 				int read_command();
+				int parse(const char*, char*, char*);
 
 }; // }}}
 

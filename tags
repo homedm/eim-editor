@@ -9,25 +9,29 @@ BufferClass	include/BufferClass.hpp	/^class BufferClass \/\/ {{{$/;"	c
 BufferClass	src/BufferClass.cpp	/^BufferClass::BufferClass(WINDOW *win) \/\/ {{{$/;"	f	class:BufferClass
 CC	src/makefile	/^CC = g++$/;"	m
 CFLAGS	src/makefile	/^CFLAGS = -std=c++11$/;"	m
-CHANGEMOVEMODE	include/enum.hpp	5;"	d
+COMMANDLINEMAX	src/CommandLineClass.cpp	12;"	d	file:
+COMMANDMAX	src/CommandLineClass.cpp	13;"	d	file:
 COMMANDMODE	include/enum.hpp	/^		COMMANDMODE,$/;"	e	enum:Mode
 COMMANDWINDOW	include/enum.hpp	/^		COMMANDWINDOW,$/;"	e	enum:KINDWINDOW
 CommandLineClass	include/CommandLineClass.hpp	/^class CommandLineClass \/\/ {{{$/;"	c
 CommandLineClass	src/CommandLineClass.cpp	/^CommandLineClass::CommandLineClass()$/;"	f	class:CommandLineClass
 DEST	src/makefile	/^DEST = \/usr\/local\/bin$/;"	m
 EDITMODE	include/enum.hpp	/^		EDITMODE,$/;"	e	enum:Mode
-EXITPROGRAM	include/enum.hpp	4;"	d
+ERROR	include/enum.hpp	7;"	d
+EXITPROGRAM	include/enum.hpp	5;"	d
 EimEngineClass	include/EimEngineClass.hpp	/^class EimEngineClass$/;"	c
 EimEngineClass	src/EimEngineClass.cpp	/^EimEngineClass::EimEngineClass()$/;"	f	class:EimEngineClass
 INCLUDE	src/makefile	/^INCLUDE =$/;"	m
-KEY_ESC	include/enum.hpp	6;"	d
+KEY_ESC	include/enum.hpp	4;"	d
 KINDWINDOW	include/enum.hpp	/^enum KINDWINDOW \/\/ {{{$/;"	g
 LIBS	src/makefile	/^LIBS = -lncursesw$/;"	m
 MOVEMODE	include/enum.hpp	/^		MOVEMODE,$/;"	e	enum:Mode
 Mode	include/enum.hpp	/^enum Mode \/\/ {{{$/;"	g
 OBJDIR	src/makefile	/^OBJDIR = .\/obj$/;"	m
 OBJS	src/makefile	/^OBJS = eim.o EimEngineClass.o BufferClass.o CommandLineClass.o$/;"	m
+OPTINOMAX	src/CommandLineClass.cpp	14;"	d	file:
 PROGRAM	src/makefile	/^PROGRAM = ..\/bin\/eim$/;"	m
+SUCCESS	include/enum.hpp	6;"	d
 VISUALMODE	include/enum.hpp	/^		VISUALMODE,$/;"	e	enum:Mode
 _INC_BUFFERCLASS	include/BufferClass.hpp	3;"	d
 _INC_COMMANDLINECLASS	include/CommandLineClass.hpp	3;"	d
@@ -44,10 +48,11 @@ _set_filename	src/BufferClass.cpp	/^void BufferClass::_set_filename(std::string 
 _set_mode	src/BufferClass.cpp	/^void BufferClass::_set_mode(Mode setmode) {$/;"	f	class:BufferClass
 active_buffer_number	include/EimEngineClass.hpp	/^		int active_buffer_number;$/;"	m	class:EimEngineClass
 add_buffer	src/EimEngineClass.cpp	/^int EimEngineClass::add_buffer(){$/;"	f	class:EimEngineClass
-buff_container_ptr	include/EimEngineClass.hpp	/^		std::vector<std::unique_ptr<BufferClass>> buff_container_ptr;$/;"	m	class:EimEngineClass
+buff_container_ptr	include/EimEngineClass.hpp	/^		std::vector<std::shared_ptr<BufferClass>> buff_container_ptr;$/;"	m	class:EimEngineClass
+buffer	include/CommandLineClass.hpp	/^				std::shared_ptr<BufferClass> buffer;$/;"	m	class:CommandLineClass
 command_branch	src/BufferClass.cpp	/^int BufferClass::command_branch(int const key) \/\/ {{{$/;"	f	class:BufferClass
-command_branch	src/CommandLineClass.cpp	/^int CommandLineClass::command_branch(int active_buffer_number)$/;"	f	class:CommandLineClass
-command_branch	src/EimEngineClass.cpp	/^int EimEngineClass::command_branch(int key)$/;"	f	class:EimEngineClass
+command_branch	src/CommandLineClass.cpp	/^int CommandLineClass::command_branch( std::shared_ptr<BufferClass> buffer )$/;"	f	class:CommandLineClass
+command_branch	src/EimEngineClass.cpp	/^int EimEngineClass::command_branch(const int key)$/;"	f	class:EimEngineClass
 command_line	include/EimEngineClass.hpp	/^		CommandLineClass command_line;$/;"	m	class:EimEngineClass
 cursor_x	include/BufferClass.hpp	/^				int cursor_x, cursor_y; \/\/ the position in window$/;"	m	class:BufferClass
 cursor_y	include/BufferClass.hpp	/^				int cursor_x, cursor_y; \/\/ the position in window$/;"	m	class:BufferClass
@@ -55,7 +60,9 @@ filename	include/BufferClass.hpp	/^				std::string filename;$/;"	m	class:BufferC
 main	src/eim.cpp	/^int main(int argc, char *argv[])$/;"	f
 mode	include/BufferClass.hpp	/^				Mode mode;$/;"	m	class:BufferClass
 move_cursor	src/BufferClass.cpp	/^int BufferClass::move_cursor(int move_x, int move_y){ \/\/ {{{$/;"	f	class:BufferClass
+parse	src/CommandLineClass.cpp	/^int CommandLineClass::parse(const char *str, char *command, char *option)$/;"	f	class:CommandLineClass
 printkey	src/BufferClass.cpp	/^int BufferClass::printkey()$/;"	f	class:BufferClass
+printkey	src/BufferClass.cpp	/^int BufferClass::printkey(int str)$/;"	f	class:BufferClass
 readfile	src/BufferClass.cpp	/^int BufferClass::readfile(std::string const filename){ \/\/ {{{$/;"	f	class:BufferClass
 setWindow	src/CommandLineClass.cpp	/^int CommandLineClass::setWindow(){$/;"	f	class:CommandLineClass
 split_window	src/EimEngineClass.cpp	/^int EimEngineClass::split_window(){$/;"	f	class:EimEngineClass
