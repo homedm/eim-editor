@@ -12,12 +12,14 @@ class CommandLineClass // {{{
 {
 		private:
 				WINDOW *win_ptr;
+				std::shared_ptr<BufferClass> buffer;
 
 		public:
 				CommandLineClass();
 				~CommandLineClass();
-				int command_branch(int); // active buffer number を渡す。
+				int command_branch(std::shared_ptr<BufferClass>); // active buffer number を渡す。
 				int setWindow();
+				int read_command();
 
 }; // }}}
 

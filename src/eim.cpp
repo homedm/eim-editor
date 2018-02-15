@@ -9,17 +9,18 @@
 
 int main(int argc, char *argv[])
 {
-		EimEngineClass * eimEngine = new EimEngineClass();
+	// eimEinginインスタンスを作成する
+	EimEngineClass *eimEngine = new EimEngineClass();
 
-		int key; // 入力キーを保持するための変数
+	int key; // 入力キーを保持するための変数
 
-		// main loop
-		while (true)
-		{
-				key = getch(); //キー入力
-				eimEngine->command_branch(key);
-		}
+	// main loop
+	while (true)
+	{
+		key = getch(); //キー入力
+		eimEngine->command_branch(key);
+	}
 
-		delete eimEngine;
-		return 0;
+	delete eimEngine;
+	return 0;
 }

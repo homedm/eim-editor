@@ -38,8 +38,8 @@ class BufferClass // {{{
 
 				// cursor movement
 				int move_cursor(int move_y, int move_x);
-				int printkey();
-				int printkey(int);
+				int printkey(); // 挿入
+				int printkey(int); // 引数の個数だけ置換する
 
 				int command_branch(int key);
 

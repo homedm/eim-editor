@@ -1,9 +1,9 @@
 #ifndef _INC_ENUM
 #define _INC_ENUM
 // key code {{{
-#define EXITPROGRAM 0
-#define CHANGEMOVEMODE 1
 #define KEY_ESC 27
+#define SUCCESS 1
+#define ERROR 0
 // }}}
 enum KINDWINDOW // {{{
 {

@@ -33,6 +33,8 @@ EimEngineClass::EimEngineClass()
 
 	// for indicate active buffer
 	active_buffer_number = 0;
+
+	refresh();
 }
 
 EimEngineClass::~EimEngineClass()
@@ -46,7 +48,7 @@ EimEngineClass::~EimEngineClass()
 }
 
 int EimEngineClass::add_buffer(){
-	this->buff_container_ptr.push_back(   std::unique_ptr<BufferClass>(  new BufferClass( newwin(LINES-3, COLS, 0, 0) )  )   );
+	this->buff_container_ptr.push_back(   std::shared_ptr<BufferClass>(  new BufferClass( newwin(LINES-3, COLS, 0, 0) )  )   );
 }
 
 int EimEngineClass::split_window(){
@@ -55,31 +57,33 @@ int EimEngineClass::split_window(){
 	return 0;
 }
 
-int EimEngineClass::command_branch(int key)
+int EimEngineClass::command_branch(const int key)
 {
 	// 返り値によって　処理を分岐する
 	switch (key) {
 		case ':':
-			// change command mode
+			// change mode to command mode
 			buff_container_ptr[active_buffer_number].get()->_set_mode(COMMANDMODE);
-			switch(command_line.command_branch(active_buffer_number))
+
+			// command mode command branch
+
+			// アクティブバッファのインスタンスへのポインタをcommandlineに渡す
+			if( command_line.command_branch( buff_container_ptr[active_buffer_number] ) )
 			{
-				case EXITPROGRAM:
-					// exit program
-					delete this;
-					break;
-
-				case CHANGEMOVEMODE:
-					buff_container_ptr[active_buffer_number].get()->_set_mode(MOVEMODE);
-					break;
-
+				// 成功時
 			}
+			else
+			{
+				// コマンド失敗時
+			}
+			// change mode to move mode
+			buff_container_ptr[active_buffer_number].get()->_set_mode(MOVEMODE);
 			break;
-			// move mode command branch
 		default:
+			// move mode command branch
 			buff_container_ptr[active_buffer_number].get()->command_branch(key);
 			break;
 	}
-	buff_container_ptr[active_buffer_number].get()->_set_mode(MOVEMODE);
+
 	return 0;
 }

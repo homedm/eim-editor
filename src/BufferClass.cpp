@@ -14,6 +14,7 @@ BufferClass::BufferClass(WINDOW *win) // {{{
 	mode = MOVEMODE;
 
 	wclear(win_ptr); // clear buffer window
+	leaveok(win_ptr, false);
 
 	cursor_x = 0; cursor_y = 0;
 } // }}}
@@ -31,6 +32,11 @@ Mode BufferClass::_get_mode(){
 }
 void BufferClass::_set_mode(Mode setmode) {
 	mode = setmode;
+	if(mode == MOVEMODE)
+	{
+		wmove(win_ptr, _get_cursor_y(), _get_cursor_x());
+		wrefresh(win_ptr);
+	}
 } // }}}
 
 // window_id {{{
@@ -67,14 +73,28 @@ void BufferClass::_set_cursor_y(int set_cursor_y){
 // move_y, move_xだけ現在のカーソルの位置を移動させる.
 int BufferClass::move_cursor(int move_x, int move_y){ // {{{
 	int lines, cols;
+	const int cur_x = _get_cursor_x();
+	const int cur_y = _get_cursor_y();
+
 	getmaxyx(win_ptr, lines, cols);
-	if(cursor_x + move_x <= cols-1 && cursor_x + move_x >= 0) cursor_x += move_x;
-	if(cursor_y + move_y <= lines-1 && cursor_y + move_y >= 0) cursor_y += move_y;
-	wmove(win_ptr, cursor_y, cursor_x);
+
+	if(cur_x + move_x <= cols-1 && cur_x + move_x >= 0)
+	{
+		_set_cursor_x(cur_x + move_x);
+	}
+	if(cur_y + move_y <= lines-1 && cur_y + move_y >= 0)
+	{
+		_set_cursor_y(cur_y + move_y);
+	}
+	wmove(win_ptr, _get_cursor_y(), _get_cursor_x());
 } // }}}
 
 int BufferClass::command_branch(int const key) // {{{
 {
+	// バッファにカーソルを合わせる。
+	wmove(win_ptr, _get_cursor_y(), _get_cursor_x());
+	wrefresh(win_ptr);
+
 	switch (key) {
 		// move command {{{
 		case 'h':
@@ -90,9 +110,9 @@ int BufferClass::command_branch(int const key) // {{{
 			// move right
 			move_cursor(1, 0); break;
 		case '^':
-			move_cursor(-cursor_x, 0);break;
-		// }}}
-		// print command {{{
+			move_cursor((-1) * _get_cursor_x(), 0);break;
+			// }}}
+			// print command {{{
 		case 'i':
 			printkey(); break;
 		case 'a':
@@ -101,10 +121,9 @@ int BufferClass::command_branch(int const key) // {{{
 		case 'R':
 			int lines, cols;
 			getmaxyx(win_ptr, lines, cols);
-			printkey(cols - cursor_x); break;
-		// }}}
+			printkey(cols - _get_cursor_x()); break;
+			// }}}
 	}
-
 	wrefresh(win_ptr);
 } // }}}
 
@@ -121,6 +140,7 @@ int BufferClass::printkey()
 				return 0;
 				break;
 			default:
+				// テキスト挿入
 				winsch(win_ptr, (char)key);
 				move_cursor(1, 0);
 		}
@@ -141,6 +161,7 @@ int BufferClass::printkey(int str)
 				return 0;
 				break;
 			default:
+				// テキスト上書き
 				waddch(win_ptr, (char)key);
 				move_cursor(1, 0);
 		}

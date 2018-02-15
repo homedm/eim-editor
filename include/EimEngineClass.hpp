@@ -15,7 +15,7 @@ class EimEngineClass
 	private:
 		/* バッファ管理のためのコンテナを宣言 */
 		/* get()メソッドを使って参照する必要がある。 */
-		std::vector<std::unique_ptr<BufferClass>> buff_container_ptr;
+		std::vector<std::shared_ptr<BufferClass>> buff_container_ptr;
 
 		int active_buffer_number;
 
@@ -27,7 +27,7 @@ class EimEngineClass
 
 		int add_buffer();
 		int split_window();
-		int command_branch(int key);
+		int command_branch(const int key);
 };
 
 #endif //INC_SCREENCLASS
