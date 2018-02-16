@@ -2,9 +2,9 @@ CC = g++
 DEST = /usr/local/bin
 INCLUDE =
 CFLAGS = -std=c++11
-LIBS = -lncursesw
+LIBS = `pkg-config gtkmm-3.0 --cflags --libs gtk+-3.0`
 OBJDIR = ./obj
-OBJS = eim.o EimEngineClass.o BufferClass.o CommandLineClass.o
+OBJS = eim.o EimEditView.o
 PROGRAM = ../bin/eim
 
 $(PROGRAM): $(OBJS)
@@ -13,14 +13,8 @@ $(PROGRAM): $(OBJS)
 eim.o: eim.cpp
 	$(CC) $(CFLAGS) $(INCLUDE) $(LIBS) -c eim.cpp
 
-EimEngineClass.o:EimEngineClass.cpp
-	$(CC) $(CFLAGS) $(INCLUDE) $(LIBS) -c EimEngineClass.cpp
-
-BufferClass.o:BufferClass.cpp
-	$(CC) $(CFLAGS) $(INCLUDE) $(LIBS) -c BufferClass.cpp
-
-CommandLineClass.o:CommandLineClass.cpp
-	$(CC) $(CFLAGS) $(INCLUDE) $(LIBS) -c CommandLineClass.cpp
+EimEditView.o: EimEditView.cpp
+	$(CC) $(CFLAGS) $(INCLUDE) $(LIBS) -c EimEditView.cpp
 
 clean:
 	rm -f *.o $(PROGRAM)
