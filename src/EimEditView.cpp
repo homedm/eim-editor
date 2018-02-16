@@ -9,19 +9,21 @@ EimEditView::EimEditView()
 {
 	// make window gui {{{
 	m_buffview.get_buffer()->set_text( "hello world" );
-	add_events(Gdk::KEY_PRESS_MASK);
-	signal_key_press_event().connect(
-			sigc::mem_fun( *this, &EimEditView::onKeyPress ) );
+	set_events(Gdk::KEY_PRESS_MASK);
+	this->signal_key_press_event().connect(
+			sigc::mem_fun( *this, &EimEditView::onKeyPress), false);
+	m_buffscroll.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+	m_buffscroll.add( m_buffview );
 
 	m_cmdline.set_text(" コマンドライン ");
 	// シグナルとスロットをコネクト
 	m_cmdline.signal_activate().connect(
 			sigc::mem_fun( *this, &EimEditView::readcmd ) );
 
-	m_buffscroll.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
-	m_buffscroll.add( m_buffview );
+	// boxに追加する
 	m_pbox.pack_start( m_buffscroll );
 	m_pbox.pack_end( m_cmdline, false, false, 0 );
+	// 可視フレームとタイトルを持ったGtk::Frameに加える
 	add( m_pbox );
 	show_all_children();
 	resize(400, 600);
@@ -36,7 +38,6 @@ EimEditView::~EimEditView()
 // key event {{{
 bool EimEditView::onKeyPress( GdkEventKey* event)
 {
-	Gtk::MessageDialog( m_buffview.get_buffer()->get_text() ).run();
 	// モードによって処理を分ける
 	switch( _get_mode() )
 	{
@@ -63,6 +64,7 @@ void EimEditView::moveModeKeyPressEvent( GdkEventKey* event )
 {
 	if( event->keyval == GDK_KEY_i )
 	{
+		Gtk::MessageDialog( m_buffview.get_buffer()->get_text() ).run();
 		_set_mode( EDIT );
 		return;
 	}
