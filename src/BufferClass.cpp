@@ -21,7 +21,6 @@ BufferClass::BufferClass(WINDOW *win) // {{{
 
 BufferClass::~BufferClass() // {{{
 {
-	// EimEngineClassのo_buffer_windowからも消す処理を追加する.
 	delwin(win_ptr);
 } // }}}
 

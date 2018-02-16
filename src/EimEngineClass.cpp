@@ -9,24 +9,6 @@
 
 EimEngineClass::EimEngineClass()
 {
-	setlocale(LC_ALL, ""); //マルチバイト文字列を有効にする
-	initscr();
-	cbreak();
-	//キー入力された文字を表示しないモードにする。初めはmove modeのため。
-	noecho();
-	keypad(stdscr, TRUE);
-
-	// set color {{{
-	if(has_colors()){
-		start_color();
-		// init_pair(number, foreground, background);
-		init_pair(1, COLOR_WHITE, COLOR_BLACK);
-		init_pair(2, COLOR_BLACK, COLOR_WHITE);
-		init_pair(3, COLOR_GREEN, COLOR_RED);
-	}
-	// }}}
-	curs_set(1);
-
 	// make commandline window buffer window
 	add_buffer();
 	command_line.setWindow();
@@ -34,19 +16,16 @@ EimEngineClass::EimEngineClass()
 	// for indicate active buffer
 	active_buffer_number = 0;
 
-	refresh();
 }
 
 EimEngineClass::~EimEngineClass()
 {
-	flash();
 	// バッファーオブジェクトを開放する。
 	for(int i=0;buff_container_ptr.size(); i++)
 	{
 		delete buff_container_ptr[i].get();
 	}
 	command_line.~CommandLineClass();
-	endwin(); //ncurses終了
 }
 
 int EimEngineClass::add_buffer(){
@@ -70,15 +49,15 @@ int EimEngineClass::command_branch(const int key)
 			// command mode command branch
 
 			// アクティブバッファのインスタンスへのポインタをcommandlineに渡す
-			if( command_line.command_branch( buff_container_ptr[active_buffer_number] ) )
+			switch( command_line.command_branch( buff_container_ptr[active_buffer_number] ) )
 			{
 				// 成功時
-			}
-			else
-			{
-				// プログラム終了
-				flash();
-				delete this;
+				case TRUE:
+					break;
+				case EXITPROGRAM:
+					// プログラム終了
+					return EXITPROGRAM;
+					break;
 			}
 			// change mode to move mode
 			buff_container_ptr[active_buffer_number].get()->_set_mode(MOVEMODE);
