@@ -11,11 +11,8 @@ enum KINDWINDOW // {{{
 		COMMANDWINDOW,
 		BUFFERWINDOW
 }; // }}}
-enum Mode // {{{
-{
-		MOVEMODE,
-		EDITMODE,
-		COMMANDMODE,
-		VISUALMODE,
-}; // }}}
+enum Mode {
+	MOVE,
+	EDIT
+};
 #endif //INCENUM
