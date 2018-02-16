@@ -13,7 +13,9 @@ EimEditView::EimEditView()
 	cmdline.signal_activate().connect(
 			sigc::mem_fun( *this, &EimEditView::readcmd ) );
 
-	pbox.pack_start( buffview );
+	buffscroll.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+	buffscroll.add( buffview );
+	pbox.pack_start( buffscroll );
 	pbox.pack_end( cmdline, false, false, 0 );
 	add( pbox );
 	show_all_children();

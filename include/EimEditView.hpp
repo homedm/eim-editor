@@ -11,6 +11,7 @@ class EimEditView : public Gtk::Window // {{{
 	private:
 		Gtk::VBox pbox; // 縦にバッファとコマンドラインを並べる
 		Gtk::TextView buffview; // バッファの中身を表示するビュー
+		Gtk::ScrolledWindow buffscroll; // バッファ内スクロールバー
 		Gtk::Entry cmdline; // コマンドライン
 
 	public:
