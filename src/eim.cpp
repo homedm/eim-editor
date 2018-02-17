@@ -6,10 +6,15 @@
 
 int main(int argc, char *argv[])
 {
+	// GTKの初期化
 	Gtk::Main kit(argc, argv);
 
-	EimEditView editview;
+	EimEditView editview; // ウィンドウを作る
+
+	// イベントループに入る
 	Gtk::Main::run( editview );
+
+	kit.quit();
 
 	return 0;
 }

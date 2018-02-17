@@ -26,6 +26,8 @@ class EimEditView : public Gtk::Window // {{{
 		bool onKeyPress( GdkEventKey* );
 		void moveModeKeyPressEvent( GdkEventKey* );
 		void editModeKeyPressEvent( GdkEventKey* );
+		void cmdlineModeKeyPressEvent( GdkEventKey* );
+		void parseCmdLine();
 
 		// getter and setter {{{
 		Mode _get_mode();
