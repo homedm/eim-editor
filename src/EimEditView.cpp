@@ -26,12 +26,14 @@ EimEditView::EimEditView()
 	// boxに追加する
 	m_pbox.pack_start( m_buffscroll );
 	m_pbox.pack_end( m_cmdline, false, false, 0 );
+	m_pbox.pack_end( m_stsline, false, false, 0 );
 	// 可視フレームとタイトルを持ったGtk::Frameに加える
 	add( m_pbox );
 	show_all_children();
 	resize(400, 600); // 初期ウィンドウサイズ
 	// }}}
 	_set_mode(MOVE); // init mode
+	m_stsline.set_text( "Move Mode" );
 }
 
 EimEditView::~EimEditView()
@@ -59,6 +61,7 @@ void EimEditView::editModeKeyPressEvent( GdkEventKey* event )
 	if( event->keyval == GDK_KEY_Escape )
 	{
 		_set_mode( MOVE ); // move mode に移行する
+		m_stsline.set_text( "Move Mode" );
 		return;
 	}
 	// ESC key以外はバッファに入力
@@ -69,6 +72,7 @@ void EimEditView::moveModeKeyPressEvent( GdkEventKey* event )
 	if( event->keyval == GDK_KEY_i )
 	{
 		_set_mode( EDIT );
+		m_stsline.set_text( "Edit Mode" );
 		return;
 	}
 	// とりあえず、i以外のキー入力は無視する
@@ -78,11 +82,8 @@ void EimEditView::cmdlineModeKeyPressEvent( GdkEventKey* event )
 	if( event->keyval == GDK_KEY_Escape )
 	{
 		_set_mode( MOVE );
+		m_stsline.set_text( "Move Mode" );
 	}
-	// if( event->keyval == GDK_KP_Enter )
-	// {
-	// 	   m_cmdline.get_text()
-	// }
 	// ESC, Enter以外は無視する
 	Gtk::Window::on_key_press_event( event );
 }

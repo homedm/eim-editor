@@ -15,6 +15,7 @@ class EimEditView : public Gtk::Window // {{{
 		Gtk::TextView m_buffview; // バッファの中身を表示するビュー
 		Gtk::ScrolledWindow m_buffscroll; // バッファ内スクロールバー
 		Gtk::Entry m_cmdline; // コマンドライン
+		Gtk::Label m_stsline; // status line 現在のモード等の情報を表示する
 		Mode m_mode;
 		std::string m_filename;
 
