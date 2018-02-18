@@ -69,11 +69,28 @@ void EimEditView::editModeKeyPressEvent( GdkEventKey* event )
 }
 void EimEditView::moveModeKeyPressEvent( GdkEventKey* event )
 {
-	if( event->keyval == GDK_KEY_i )
+	switch( event->keyval )
 	{
-		_set_mode( EDIT );
-		m_stsline.set_text( "Edit Mode" );
-		return;
+		case GDK_KEY_i:
+			_set_mode( EDIT );
+			m_stsline.set_text( "Edit Mode" );
+			return;
+			break;
+
+			// the smallest movement {{{
+		case GDK_KEY_h:
+			// to go left
+			break;
+		case GDK_KEY_j:
+			// to go down
+			break;
+		case GDK_KEY_k:
+			// to go up
+			break;
+		case GDK_KEY_l:
+			// to go right
+			break;
+			//}}}
 	}
 	// とりあえず、i以外のキー入力は無視する
 }
