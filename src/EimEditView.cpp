@@ -9,6 +9,7 @@ EimEditView::EimEditView()
 {
 	// make window gui {{{
 	m_buffview.get_buffer()->set_text( "hello world" );
+	m_buffview.set_monospace(true); // modify font width
 
 	// キー入力イベントを書き換える
 	set_events(Gdk::KEY_PRESS_MASK);
@@ -38,6 +39,7 @@ EimEditView::EimEditView()
 
 EimEditView::~EimEditView()
 {
+	hide();
 }
 
 // key event {{{
@@ -136,33 +138,25 @@ bool EimEditView::cur_move_backward()
 	m_buffview.get_buffer()->place_cursor(iter);
 	return true;
 }
-// おかしなきょどう
+// 一つ上の行の先頭に移動する
 bool EimEditView::cur_move_preline()
 {
 	Gtk::TextIter iter = m_buffview.get_buffer()->get_insert()->get_iter();
-	int n = iter.get_line_offset();
-
 	// 前の行の先頭に移動
 	iter.backward_line();
 
-	// 移動先の行の文字数を数える
-	int nc = iter.get_chars_in_line() - 1;
-	for(int i=0; i < n && i < nc; ++i) {
-		iter.backward_char();
-	}
+	// ここで実際にカーソルが移動する
 	m_buffview.get_buffer()->place_cursor(iter);
 	return true;
 }
+
+//次の行の先頭に移動
 bool EimEditView::cur_move_nextline()
 {
 	Gtk::TextIter iter = m_buffview.get_buffer()->get_insert()->get_iter();
-	int n = iter.get_line_offset();
 	iter.forward_line();
-	int nc = iter.get_chars_in_line() - 1;
 
-	for(int i=0; i < n && i < nc; ++i) {
-		iter.forward_char();
-	}
+	// ここで実際にカーソルが移動する
 	m_buffview.get_buffer()->place_cursor(iter);
 	return true;
 }
@@ -182,7 +176,8 @@ void EimEditView::cmdlineModeKeyPressEvent( GdkEventKey* event )
 // m_cmdline上でEnter keyを押されたらcmdlineの入力を読み取る
 void EimEditView::parseCmdLine()
 {
-	Gtk::MessageDialog( m_cmdline.get_text() ).run();
+	Glib::ustring cmd = m_cmdline.get_text();
+	if( cmd == "q" ) hide();
 }
 
 // setter and getter {{{
