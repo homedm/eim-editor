@@ -52,16 +52,28 @@ bool EimEditView::onKeyPress( GdkEventKey* event)
 		case EDIT:
 			editModeKeyPressEvent( event ); // edit mode process
 			break;
+		case CMD:
+			cmdlineModeKeyPressEvent( event ); // cmd line mode process
+			break;
 	}
 	return true;
 }
 
 void EimEditView::editModeKeyPressEvent( GdkEventKey* event )
 {
-	if( event->keyval == GDK_KEY_Escape )
+	guint key = event->keyval;
+	if( key == GDK_KEY_Escape )
 	{
 		_set_mode( MOVE ); // move mode に移行する
 		m_stsline.set_text( "Move Mode" );
+		return;
+	}
+	if( key == GDK_KEY_colon
+			&& event->state == Gdk::CONTROL_MASK )
+	{
+		_set_mode( CMD );
+		m_stsline.set_text( "CmdLine Mode" );
+		m_cmdline.grab_focus();
 		return;
 	}
 	// ESC key以外はバッファに入力
@@ -69,34 +81,43 @@ void EimEditView::editModeKeyPressEvent( GdkEventKey* event )
 }
 void EimEditView::moveModeKeyPressEvent( GdkEventKey* event )
 {
-	switch( event->keyval )
+	guint key = event->keyval;
+	if( key == GDK_KEY_i)
 	{
-		case GDK_KEY_i:
-			_set_mode( EDIT );
-			m_stsline.set_text( "Edit Mode" );
-			return;
-			break;
-
-			// the smallest movement {{{
-		case GDK_KEY_h:
-			// to go left
-			cur_move_backward();
-			break;
-		case GDK_KEY_j:
-			// to go down
-			cur_move_nextline();
-			break;
-		case GDK_KEY_k:
-			// to go up
-			cur_move_preline();
-			break;
-		case GDK_KEY_l:
-			// to go right
-			cur_move_forward();
-			break;
-			//}}}
+		_set_mode( EDIT );
+		m_stsline.set_text( "Edit Mode" );
+		return;
 	}
-	// とりあえず、i以外のキー入力は無視する
+	if( key == GDK_KEY_colon
+			&& event->state == Gdk::CONTROL_MASK )
+	{
+		_set_mode( CMD );
+		m_stsline.set_text( "CmdLine Mode" );
+		m_cmdline.grab_focus();
+		return;
+	}
+	// the smallest movement {{{
+	if( key == GDK_KEY_h)
+	{
+		// to go left
+		cur_move_backward();
+	}
+	if( key == GDK_KEY_j )
+	{
+		// to go down
+		cur_move_nextline();
+	}
+	if( key == GDK_KEY_k )
+	{
+		// to go up
+		cur_move_preline();
+	}
+	if( key == GDK_KEY_l )
+	{
+		// to go right
+		cur_move_forward();
+	}
+	//}}}
 }
 
 // イテレータの移動をこの関数に任せる {{{
@@ -153,6 +174,7 @@ void EimEditView::cmdlineModeKeyPressEvent( GdkEventKey* event )
 	{
 		_set_mode( MOVE );
 		m_stsline.set_text( "Move Mode" );
+		m_buffview.grab_focus(); // return focus to buffview
 	}
 	// ESC, Enter以外は無視する
 	Gtk::Window::on_key_press_event( event );

@@ -13,6 +13,7 @@ enum KINDWINDOW // {{{
 }; // }}}
 enum Mode {
 	MOVE,
-	EDIT
+	EDIT,
+	CMD
 };
 #endif //INCENUM
