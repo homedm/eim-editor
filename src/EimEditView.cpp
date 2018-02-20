@@ -80,6 +80,7 @@ void EimEditView::moveModeKeyPressEvent( GdkEventKey* event )
 			// the smallest movement {{{
 		case GDK_KEY_h:
 			// to go left
+			cur_move_backward();
 			break;
 		case GDK_KEY_j:
 			// to go down
@@ -89,11 +90,31 @@ void EimEditView::moveModeKeyPressEvent( GdkEventKey* event )
 			break;
 		case GDK_KEY_l:
 			// to go right
+			cur_move_forward();
 			break;
 			//}}}
 	}
 	// とりあえず、i以外のキー入力は無視する
 }
+
+// イテレータの移動をこの関数に任せる {{{
+bool EimEditView::cur_move_forward()
+{
+	Gtk::TextIter iter = m_buffview.get_buffer()->get_insert()->get_iter();
+	iter.forward_char();
+	m_buffview.get_buffer()->place_cursor(iter);
+	return true;
+}
+
+bool EimEditView::cur_move_backward()
+{
+	Gtk::TextIter iter = m_buffview.get_buffer()->get_insert()->get_iter();
+	iter.backward_char();
+	m_buffview.get_buffer()->place_cursor(iter);
+	return true;
+}
+// }}}
+
 void EimEditView::cmdlineModeKeyPressEvent( GdkEventKey* event )
 {
 	if( event->keyval == GDK_KEY_Escape )

@@ -1,7 +1,7 @@
 CC = g++
 DEST = /usr/local/bin
 INCLUDE =
-CFLAGS = -std=c++11
+CFLAGS = -std=c++11 -g
 LIBS = `pkg-config gtkmm-3.0 --cflags --libs gtk+-3.0`
 OBJDIR = ./obj
 OBJS = eim.o EimEditView.o
