@@ -31,6 +31,8 @@ class EimEditView : public Gtk::Window // {{{
 		void parseCmdLine();
 		bool cur_move_forward();
 		bool cur_move_backward();
+		bool cur_move_preline();
+		bool cur_move_nextline();
 
 		// getter and setter {{{
 		Mode _get_mode();

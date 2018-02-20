@@ -84,9 +84,11 @@ void EimEditView::moveModeKeyPressEvent( GdkEventKey* event )
 			break;
 		case GDK_KEY_j:
 			// to go down
+			cur_move_nextline();
 			break;
 		case GDK_KEY_k:
 			// to go up
+			cur_move_preline();
 			break;
 		case GDK_KEY_l:
 			// to go right
@@ -110,6 +112,36 @@ bool EimEditView::cur_move_backward()
 {
 	Gtk::TextIter iter = m_buffview.get_buffer()->get_insert()->get_iter();
 	iter.backward_char();
+	m_buffview.get_buffer()->place_cursor(iter);
+	return true;
+}
+// おかしなきょどう
+bool EimEditView::cur_move_preline()
+{
+	Gtk::TextIter iter = m_buffview.get_buffer()->get_insert()->get_iter();
+	int n = iter.get_line_offset();
+
+	// 前の行の先頭に移動
+	iter.backward_line();
+
+	// 移動先の行の文字数を数える
+	int nc = iter.get_chars_in_line() - 1;
+	for(int i=0; i < n && i < nc; ++i) {
+		iter.backward_char();
+	}
+	m_buffview.get_buffer()->place_cursor(iter);
+	return true;
+}
+bool EimEditView::cur_move_nextline()
+{
+	Gtk::TextIter iter = m_buffview.get_buffer()->get_insert()->get_iter();
+	int n = iter.get_line_offset();
+	iter.forward_line();
+	int nc = iter.get_chars_in_line() - 1;
+
+	for(int i=0; i < n && i < nc; ++i) {
+		iter.forward_char();
+	}
 	m_buffview.get_buffer()->place_cursor(iter);
 	return true;
 }
