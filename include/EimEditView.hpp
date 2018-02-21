@@ -17,7 +17,7 @@ class EimEditView : public Gtk::Window // {{{
 		Gtk::Entry m_cmdline; // コマンドライン
 		Gtk::Label m_stsline; // status line 現在のモード等の情報を表示する
 		Mode m_mode;
-		std::string m_filename;
+		Glib::ustring m_fname;
 
 	public:
 		EimEditView();
@@ -33,6 +33,7 @@ class EimEditView : public Gtk::Window // {{{
 		bool cur_move_backward();
 		bool cur_move_preline();
 		bool cur_move_nextline();
+		bool readtext(Glib::ustring);
 
 		// getter and setter {{{
 		Mode _get_mode();

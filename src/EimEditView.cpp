@@ -122,7 +122,6 @@ void EimEditView::moveModeKeyPressEvent( GdkEventKey* event )
 	//}}}
 }
 
-// イテレータの移動をこの関数に任せる {{{
 bool EimEditView::cur_move_forward()
 {
 	Gtk::TextIter iter = m_buffview.get_buffer()->get_insert()->get_iter();
@@ -160,7 +159,6 @@ bool EimEditView::cur_move_nextline()
 	m_buffview.get_buffer()->place_cursor(iter);
 	return true;
 }
-// }}}
 
 void EimEditView::cmdlineModeKeyPressEvent( GdkEventKey* event )
 {
@@ -173,11 +171,17 @@ void EimEditView::cmdlineModeKeyPressEvent( GdkEventKey* event )
 	// ESC, Enter以外は無視する
 	Gtk::Window::on_key_press_event( event );
 }
+
 // m_cmdline上でEnter keyを押されたらcmdlineの入力を読み取る
 void EimEditView::parseCmdLine()
 {
 	Glib::ustring cmd = m_cmdline.get_text();
 	if( cmd == "q" ) hide();
+}
+
+bool EimEditView::readtext( Glib::ustring fname )
+{
+	return true;
 }
 
 // setter and getter {{{
