@@ -1,14 +1,14 @@
-// EimEngineClass.cpp ---
+// EimEditView.cpp ---
 #include <gtkmm.h>
 #include <memory>
 #include <locale.h>
 #include "../include/enum.hpp"
 #include "../include/EimEditView.hpp"
+#include "../include/EimEngine.hpp"
 
 EimEditView::EimEditView()
 {
 	// make window gui {{{
-	m_buffview.get_buffer()->set_text( "hello world" );
 	m_buffview.set_monospace(true); // modify font width
 
 	// キー入力イベントを書き換える
@@ -35,6 +35,7 @@ EimEditView::EimEditView()
 	// }}}
 	_set_mode(MOVE); // init mode
 	m_stsline.set_text( "Move Mode" );
+	m_eimEngine->_set_eimEditView(this*);
 }
 
 EimEditView::~EimEditView()
@@ -42,86 +43,16 @@ EimEditView::~EimEditView()
 	hide();
 }
 
-// key event {{{
-bool EimEditView::onKeyPress( GdkEventKey* event)
+void EimEditView::onKeyPress( GdkEventKey* event) // {{{
 {
-	// モードによって処理を分ける
-	switch( _get_mode() )
-	{
-		case MOVE:
-			moveModeKeyPressEvent( event ); // move mode process
-			break;
-		case EDIT:
-			editModeKeyPressEvent( event ); // edit mode process
-			break;
-		case CMD:
-			cmdlineModeKeyPressEvent( event ); // cmd line mode process
-			break;
-	}
-	return true;
-}
+	// MOVEモードの時のみtrueが返ってくる
+	if( m_eimEngine != 0 && m_eimEngine->procesKeyPressEvent( event ) return;
 
-void EimEditView::editModeKeyPressEvent( GdkEventKey* event )
-{
-	guint key = event->keyval;
-	if( key == GDK_KEY_Escape )
-	{
-		_set_mode( MOVE ); // move mode に移行する
-		m_stsline.set_text( "Move Mode" );
-		return;
-	}
-	if( key == GDK_KEY_colon
-			&& event->state == Gdk::CONTROL_MASK )
-	{
-		_set_mode( CMD );
-		m_stsline.set_text( "CmdLine Mode" );
-		m_cmdline.grab_focus();
-		return;
-	}
-	// ESC key以外はバッファに入力
 	Gtk::Window::on_key_press_event( event );
-}
-void EimEditView::moveModeKeyPressEvent( GdkEventKey* event )
-{
-	guint key = event->keyval;
-	if( key == GDK_KEY_i)
-	{
-		_set_mode( EDIT );
-		m_stsline.set_text( "Edit Mode" );
-		return;
-	}
-	if( key == GDK_KEY_colon
-			&& event->state == Gdk::CONTROL_MASK )
-	{
-		_set_mode( CMD );
-		m_stsline.set_text( "CmdLine Mode" );
-		m_cmdline.grab_focus();
-		return;
-	}
-	// the smallest movement {{{
-	if( key == GDK_KEY_h)
-	{
-		// to go left
-		cur_move_backward();
-	}
-	if( key == GDK_KEY_j )
-	{
-		// to go down
-		cur_move_nextline();
-	}
-	if( key == GDK_KEY_k )
-	{
-		// to go up
-		cur_move_preline();
-	}
-	if( key == GDK_KEY_l )
-	{
-		// to go right
-		cur_move_forward();
-	}
-	//}}}
-}
+} // }}}
 
+
+// ### move command methods {{{
 bool EimEditView::cur_move_forward()
 {
 	Gtk::TextIter iter = m_buffview.get_buffer()->get_insert()->get_iter();
@@ -159,34 +90,18 @@ bool EimEditView::cur_move_nextline()
 	m_buffview.get_buffer()->place_cursor(iter);
 	return true;
 }
-
-void EimEditView::cmdlineModeKeyPressEvent( GdkEventKey* event )
-{
-	if( event->keyval == GDK_KEY_Escape )
-	{
-		_set_mode( MOVE );
-		m_stsline.set_text( "Move Mode" );
-		m_buffview.grab_focus(); // return focus to buffview
-	}
-	// ESC, Enter以外は無視する
-	Gtk::Window::on_key_press_event( event );
-}
-
-// m_cmdline上でEnter keyを押されたらcmdlineの入力を読み取る
-void EimEditView::parseCmdLine()
-{
-	Glib::ustring cmd = m_cmdline.get_text();
-	if( cmd == "q" ) hide();
-}
+// }}}
 
 bool EimEditView::readtext( Glib::ustring fname )
 {
+	std::ifstream ifs(fname);
 	return true;
 }
 
 // setter and getter {{{
 std::string EimEditView::_get_filename() { return m_filename; }
 void EimEditView::_set_filename(std::string fname) { m_filename = fname; }
-Mode EimEditView::_get_mode() { return m_mode; }
-void EimEditView::_set_mode(Mode mode) { m_mode = mode; }
+Mode EimEditView::_get_mode() { return m_eimEngine->m_mode; }
+void EimEditView::_set_mode(Mode mode) { m_eimEngine->_get_mode( mode ); }
+void EimEditView::_set_eimEngine(EimEngine *eimEngine){ m_eimEngine = eimEngine;}
 // }}}
