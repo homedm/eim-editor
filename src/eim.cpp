@@ -3,16 +3,18 @@
 #include <memory>
 #include "../include/enum.hpp"
 #include "../include/EimEditView.hpp"
+#include "../include/EimEngine.hpp"
+#include "../include/MainWindow.hpp"
 
 int main(int argc, char *argv[])
 {
 	// GTKの初期化
 	Gtk::Main kit(argc, argv);
 
-	EimEditView editview; // ウィンドウを作る
+	MainWindow win; // ウィンドウを作る
 
 	// イベントループに入る
-	Gtk::Main::run( editview );
+	Gtk::Main::run( win );
 
 	kit.quit();
 

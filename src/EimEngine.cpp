@@ -5,10 +5,10 @@
 #include "../include/enum.hpp"
 #include "../include/EimEngine.hpp"
 
-void EimEngine::EimEngine()
+EimEngine::EimEngine()
 {
 }
-void EimEngine::~EimEngine()
+EimEngine::~EimEngine()
 {
 }
 
@@ -32,14 +32,11 @@ bool EimEngine::editModeKeyPressEvent( GdkEventKey* event ) // {{{
 	if( key == GDK_KEY_Escape )
 	{
 		_set_mode( MOVE ); // move mode に移行する
-		m_eimEditView->m_stsline.set_text( "Move Mode" );
 	}
 	if( key == GDK_KEY_colon
 			&& event->state == Gdk::CONTROL_MASK )
 	{
 		_set_mode( CMD );
-		m_eimEditView->m_stsline.set_text( "CmdLine Mode" );
-		m_eimEditView->m_cmdline.grab_focus();
 	}
 	return true;
 } // }}}
@@ -50,35 +47,32 @@ bool EimEngine::moveModeKeyPressEvent( GdkEventKey* event ) // {{{
 	if( key == GDK_KEY_i)
 	{
 		_set_mode( EDIT );
-		m_eimEditView->m_stsline.set_text( "Edit Mode" );
 	}
 	if( key == GDK_KEY_colon
 			&& event->state == Gdk::CONTROL_MASK )
 	{
 		_set_mode( CMD );
-		m_eimEditView->m_stsline.set_text( "CmdLine Mode" );
-		m_eimEditView->m_cmdline.grab_focus();
 	}
 	// the smallest movement {{{
 	if( key == GDK_KEY_h)
 	{
 		// to go left
-		m_eimEditView->cur_move_backward();
+		m_editor->cur_move_backward();
 	}
 	if( key == GDK_KEY_j )
 	{
 		// to go down
-		m_eimEditView->cur_move_nextline();
+		m_editor->cur_move_nextline();
 	}
 	if( key == GDK_KEY_k )
 	{
 		// to go up
-		m_eimEditView->cur_move_preline();
+		m_editor->cur_move_preline();
 	}
 	if( key == GDK_KEY_l )
 	{
 		// to go right
-		m_eimEditView->cur_move_forward();
+		m_editor->cur_move_forward();
 	}
 	//}}}
 	return false;
@@ -89,22 +83,26 @@ bool EimEngine::cmdlineModeKeyPressEvent( GdkEventKey* event ) // {{{
 	if( event->keyval == GDK_KEY_Escape )
 	{
 		_set_mode( MOVE );
-		m_eimEditView->m_stsline.set_text( "Move Mode" );
-		m_eimEditView->m_buffview.grab_focus(); // return focus to buffview
+		m_editor->grab_focus(); // return focus to buffview
 	}
 	return false;
 } // }}}
 
 // m_cmdline上でEnter keyを押されたらcmdlineの入力を読み取る
-void EimEditView::parseCmdLine() // {{{
+void EimEngine::parseCmdLine() // {{{
 {
-	Glib::ustring cmd = m_cmdline.get_text();
+	Glib::ustring cmd = m_cmdline->get_text();
 	if( cmd == "q" ) hide();
 } // }}}
 
+void EimEngine::readcmd()
+{
+}
+
 // setter and getter {{{
-void EimEngine::_set_mode(Mode) { m_mode = mode; }
+void EimEngine::_set_mode( Mode mode ) { m_mode = mode; }
 Mode EimEngine::_get_mode() { return m_mode; }
-void EimEngine::_set_eimEditView( EimEditView* view ) { m_eimEditView = view;}
-EimEditView* EimEngine::_get_eimEditView(){ return *m_eimEditView;}
+void EimEngine::_set_eimEditView( EimEditView* view ) { m_editor = view;}
+EimEditView* EimEngine::_get_eimEditView(){ return m_editor; }
+void EimEngine::_set_cmdline( Gtk::Entry* cmdline ){ m_cmdline = cmdline; }
 // }}}
