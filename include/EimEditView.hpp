@@ -3,32 +3,22 @@
 #define _INC_EIMEDITVIEW
 #include <gtkmm.h>
 #include <string>
-#include <list>
 #include "enum.hpp"
+#include "EimEngine.hpp"
 
-class EimEditView : public Gtk::Window // {{{
+class EimEngine;
+
+class EimEditView : public Gtk::TextView // {{{
 {
-	public:
-
 	private:
-		Gtk::VBox m_pbox; // 縦にバッファとコマンドラインを並べる
-		Gtk::TextView m_buffview; // バッファの中身を表示するビュー
-		Gtk::ScrolledWindow m_buffscroll; // バッファ内スクロールバー
-		Gtk::Entry m_cmdline; // コマンドライン
-		Gtk::Label m_stsline; // status line 現在のモード等の情報を表示する
-		Mode m_mode;
-		std::string m_filename;
+		EimEngine *m_eimEngine;
+		typedef Gtk::TextView base;
 
 	public:
 		EimEditView();
 		virtual ~EimEditView();
 
-		void readcmd();
-		bool onKeyPress( GdkEventKey* );
-		void moveModeKeyPressEvent( GdkEventKey* );
-		void editModeKeyPressEvent( GdkEventKey* );
-		void cmdlineModeKeyPressEvent( GdkEventKey* );
-		void parseCmdLine();
+		// カーソル移動
 		bool cur_move_forward();
 		bool cur_move_backward();
 		bool cur_move_preline();
@@ -38,9 +28,11 @@ class EimEditView : public Gtk::Window // {{{
 		Mode _get_mode();
 		void _set_mode(Mode);
 
-		std::string _get_filename();
-		void _set_filename(std::string);
+		void _set_eimEngine(EimEngine*);
 		// }}}
+
+	protected:
+		virtual bool on_key_press_event( GdkEventKey* event); // 入力されたキーをEimEngineに渡す
 }; // }}}
 
 #endif //INC_EIMEDITVIEW
