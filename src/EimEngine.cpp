@@ -101,11 +101,8 @@ void EimEngine::parseCmdLine() // {{{
 	Glib::ustring cmd = m_cmdline->get_text();
 	m_cmdline->set_text("");
 
-	// 分割
-	cmd = cmd.substr(0, cmd.length() - 1);
-
-	if( cmd.compare("q\n") ) {
-		hide();
+	if( cmd.compare("q") == 0 ) { // compareは等しいとき0を返す
+		exit(0);
 	}
 
 	_set_mode(MOVE);
