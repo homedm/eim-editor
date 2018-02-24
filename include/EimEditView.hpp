@@ -8,21 +8,15 @@
 
 class EimEngine;
 
-typedef sigc::signal<void> SIG_MODE_CHANGED;
-
 class EimEditView : public Gtk::TextView // {{{
 {
 	private:
-		SIG_MODE_CHANGED m_sig_mode_changed;
 		EimEngine *m_eimEngine;
+		typedef Gtk::TextView base;
 
 	public:
 		EimEditView();
 		virtual ~EimEditView();
-
-		SIG_MODE_CHANGED sig_mode_changed();
-
-		void onKeyPress( GdkEventKey* ); // 入力されたキーをEimEngineに渡す
 
 		// カーソル移動
 		bool cur_move_forward();
@@ -36,6 +30,9 @@ class EimEditView : public Gtk::TextView // {{{
 
 		void _set_eimEngine(EimEngine*);
 		// }}}
+
+	protected:
+		virtual bool on_key_press_event( GdkEventKey* event); // 入力されたキーをEimEngineに渡す
 }; // }}}
 
 #endif //INC_EIMEDITVIEW

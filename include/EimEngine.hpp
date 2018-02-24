@@ -8,6 +8,8 @@
 
 class EimEditView;
 
+typedef sigc::signal<void> SIG_MODE_CHANGED;
+
 // 編集操作はEimEditViewのメソッドを直接コールする
 class EimEngine : public Gtk::Widget
 {
@@ -15,6 +17,7 @@ class EimEngine : public Gtk::Widget
 		Mode m_mode;
 		EimEditView *m_editor;
 		Gtk::Entry *m_cmdline;
+		SIG_MODE_CHANGED m_sig_mode_changed;
 
 		bool editModeKeyPressEvent( GdkEventKey* );
 		bool cmdlineModeKeyPressEvent( GdkEventKey*);
@@ -27,8 +30,8 @@ class EimEngine : public Gtk::Widget
 		~EimEngine();
 
 		bool procesKeyPressEvent( GdkEventKey* );
-
 		void parseCmdLine();
+		SIG_MODE_CHANGED sig_mode_changed();
 
 		// setter and getter
 		void _set_mode( Mode );

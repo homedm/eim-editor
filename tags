@@ -5,71 +5,68 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 BUFFERWINDOW	include/enum.hpp	/^		BUFFERWINDOW$/;"	e	enum:KINDWINDOW
-BufferClass	include/BufferClass.hpp	/^class BufferClass \/\/ {{{$/;"	c
-BufferClass	src/BufferClass.cpp	/^BufferClass::BufferClass(WINDOW *win) \/\/ {{{$/;"	f	class:BufferClass
 CC	src/makefile	/^CC = g++$/;"	m
-CFLAGS	src/makefile	/^CFLAGS = -std=c++11$/;"	m
-COMMANDLINEMAX	src/CommandLineClass.cpp	12;"	d	file:
-COMMANDMAX	src/CommandLineClass.cpp	13;"	d	file:
-COMMANDMODE	include/enum.hpp	/^		COMMANDMODE,$/;"	e	enum:Mode
+CFLAGS	src/makefile	/^CFLAGS = -std=c++11 -g$/;"	m
+CMD	include/enum.hpp	/^	CMD$/;"	e	enum:Mode
 COMMANDWINDOW	include/enum.hpp	/^		COMMANDWINDOW,$/;"	e	enum:KINDWINDOW
-CommandLineClass	include/CommandLineClass.hpp	/^class CommandLineClass \/\/ {{{$/;"	c
-CommandLineClass	src/CommandLineClass.cpp	/^CommandLineClass::CommandLineClass()$/;"	f	class:CommandLineClass
 DEST	src/makefile	/^DEST = \/usr\/local\/bin$/;"	m
-EDITMODE	include/enum.hpp	/^		EDITMODE,$/;"	e	enum:Mode
+EDIT	include/enum.hpp	/^	EDIT,$/;"	e	enum:Mode
 ERROR	include/enum.hpp	7;"	d
 EXITPROGRAM	include/enum.hpp	5;"	d
-EimEngineClass	include/EimEngineClass.hpp	/^class EimEngineClass$/;"	c
-EimEngineClass	src/EimEngineClass.cpp	/^EimEngineClass::EimEngineClass()$/;"	f	class:EimEngineClass
+EimEditView	include/EimEditView.hpp	/^class EimEditView : public Gtk::TextView \/\/ {{{$/;"	c
+EimEditView	src/EimEditView.cpp	/^EimEditView::EimEditView()$/;"	f	class:EimEditView
+EimEngine	include/EimEngine.hpp	/^class EimEngine : public Gtk::Widget$/;"	c
+EimEngine	src/EimEngine.cpp	/^EimEngine::EimEngine()$/;"	f	class:EimEngine
 INCLUDE	src/makefile	/^INCLUDE =$/;"	m
 KEY_ESC	include/enum.hpp	4;"	d
 KINDWINDOW	include/enum.hpp	/^enum KINDWINDOW \/\/ {{{$/;"	g
-LIBS	src/makefile	/^LIBS = -lncursesw$/;"	m
-MOVEMODE	include/enum.hpp	/^		MOVEMODE,$/;"	e	enum:Mode
-Mode	include/enum.hpp	/^enum Mode \/\/ {{{$/;"	g
+LIBS	src/makefile	/^LIBS = `pkg-config gtkmm-3.0 --cflags --libs gtk+-3.0`$/;"	m
+MOVE	include/enum.hpp	/^	MOVE,$/;"	e	enum:Mode
+MainWindow	include/MainWindow.hpp	/^class MainWindow : public Gtk::Window \/\/ {{{$/;"	c
+MainWindow	src/MainWindow.cpp	/^MainWindow::MainWindow()$/;"	f	class:MainWindow
+Mode	include/enum.hpp	/^enum Mode {$/;"	g
 OBJDIR	src/makefile	/^OBJDIR = .\/obj$/;"	m
-OBJS	src/makefile	/^OBJS = eim.o EimEngineClass.o BufferClass.o CommandLineClass.o$/;"	m
-OPTINOMAX	src/CommandLineClass.cpp	14;"	d	file:
+OBJS	src/makefile	/^OBJS = eim.o EimEditView.o EimEngine.o MainWindow.o$/;"	m
 PROGRAM	src/makefile	/^PROGRAM = ..\/bin\/eim$/;"	m
+SIG_MODE_CHANGED	include/EimEditView.hpp	/^typedef sigc::signal<void> SIG_MODE_CHANGED;$/;"	t
 SUCCESS	include/enum.hpp	6;"	d
-VISUALMODE	include/enum.hpp	/^		VISUALMODE,$/;"	e	enum:Mode
-_INC_BUFFERCLASS	include/BufferClass.hpp	3;"	d
-_INC_COMMANDLINECLASS	include/CommandLineClass.hpp	3;"	d
+_INC_EIMEDITVIEW	include/EimEditView.hpp	3;"	d
+_INC_EIMENGINE	include/EimEngine.hpp	3;"	d
 _INC_ENUM	include/enum.hpp	2;"	d
-_INC_SCREENCLASS	include/EimEngineClass.hpp	3;"	d
-_get_cursor_x	src/BufferClass.cpp	/^int BufferClass::_get_cursor_x(){$/;"	f	class:BufferClass
-_get_cursor_y	src/BufferClass.cpp	/^int BufferClass::_get_cursor_y(){$/;"	f	class:BufferClass
-_get_filename	src/BufferClass.cpp	/^std::string BufferClass::_get_filename(){$/;"	f	class:BufferClass
-_get_id	src/BufferClass.cpp	/^WINDOW* BufferClass::_get_id(){$/;"	f	class:BufferClass
-_get_mode	src/BufferClass.cpp	/^Mode BufferClass::_get_mode(){$/;"	f	class:BufferClass
-_set_cursor_x	src/BufferClass.cpp	/^void BufferClass::_set_cursor_x(int set_cursor_x){$/;"	f	class:BufferClass
-_set_cursor_y	src/BufferClass.cpp	/^void BufferClass::_set_cursor_y(int set_cursor_y){$/;"	f	class:BufferClass
-_set_filename	src/BufferClass.cpp	/^void BufferClass::_set_filename(std::string set_filename){$/;"	f	class:BufferClass
-_set_mode	src/BufferClass.cpp	/^void BufferClass::_set_mode(Mode setmode) {$/;"	f	class:BufferClass
-active_buffer_number	include/EimEngineClass.hpp	/^		int active_buffer_number;$/;"	m	class:EimEngineClass
-add_buffer	src/EimEngineClass.cpp	/^int EimEngineClass::add_buffer(){$/;"	f	class:EimEngineClass
-buff_container_ptr	include/EimEngineClass.hpp	/^		std::vector<std::shared_ptr<BufferClass>> buff_container_ptr;$/;"	m	class:EimEngineClass
-buffer	include/CommandLineClass.hpp	/^				std::shared_ptr<BufferClass> buffer;$/;"	m	class:CommandLineClass
-command_branch	src/BufferClass.cpp	/^int BufferClass::command_branch(int const key) \/\/ {{{$/;"	f	class:BufferClass
-command_branch	src/CommandLineClass.cpp	/^int CommandLineClass::command_branch( std::shared_ptr<BufferClass> buffer )$/;"	f	class:CommandLineClass
-command_branch	src/EimEngineClass.cpp	/^int EimEngineClass::command_branch(const int key)$/;"	f	class:EimEngineClass
-command_line	include/EimEngineClass.hpp	/^		CommandLineClass command_line;$/;"	m	class:EimEngineClass
-cursor_x	include/BufferClass.hpp	/^				int cursor_x, cursor_y; \/\/ the position in window$/;"	m	class:BufferClass
-cursor_y	include/BufferClass.hpp	/^				int cursor_x, cursor_y; \/\/ the position in window$/;"	m	class:BufferClass
-filename	include/BufferClass.hpp	/^				std::string filename;$/;"	m	class:BufferClass
+_INC_MAINWINDOW	include/MainWindow.hpp	3;"	d
+_get_eimEditView	src/EimEngine.cpp	/^EimEditView* EimEngine::_get_eimEditView(){ return m_editor; }$/;"	f	class:EimEngine
+_get_mode	src/EimEditView.cpp	/^Mode EimEditView::_get_mode() { return m_eimEngine->_get_mode(); }$/;"	f	class:EimEditView
+_get_mode	src/EimEngine.cpp	/^Mode EimEngine::_get_mode() { return m_mode; }$/;"	f	class:EimEngine
+_set_cmdline	src/EimEngine.cpp	/^void EimEngine::_set_cmdline( Gtk::Entry* cmdline ){ m_cmdline = cmdline; }$/;"	f	class:EimEngine
+_set_eimEditView	src/EimEngine.cpp	/^void EimEngine::_set_eimEditView( EimEditView* view ) { m_editor = view;}$/;"	f	class:EimEngine
+_set_eimEngine	src/EimEditView.cpp	/^void EimEditView::_set_eimEngine(EimEngine *eimEngine){ m_eimEngine = eimEngine;}$/;"	f	class:EimEditView
+_set_mode	src/EimEditView.cpp	/^void EimEditView::_set_mode(Mode mode)$/;"	f	class:EimEditView
+_set_mode	src/EimEngine.cpp	/^void EimEngine::_set_mode( Mode mode ) { m_mode = mode; }$/;"	f	class:EimEngine
+cmdlineModeKeyPressEvent	src/EimEngine.cpp	/^bool EimEngine::cmdlineModeKeyPressEvent( GdkEventKey* event ) \/\/ {{{$/;"	f	class:EimEngine
+cur_move_backward	src/EimEditView.cpp	/^bool EimEditView::cur_move_backward()$/;"	f	class:EimEditView
+cur_move_forward	src/EimEditView.cpp	/^bool EimEditView::cur_move_forward()$/;"	f	class:EimEditView
+cur_move_nextline	src/EimEditView.cpp	/^bool EimEditView::cur_move_nextline()$/;"	f	class:EimEditView
+cur_move_preline	src/EimEditView.cpp	/^bool EimEditView::cur_move_preline()$/;"	f	class:EimEditView
+editModeKeyPressEvent	src/EimEngine.cpp	/^bool EimEngine::editModeKeyPressEvent( GdkEventKey* event ) \/\/ {{{$/;"	f	class:EimEngine
+m_buffscroll	include/MainWindow.hpp	/^		Gtk::ScrolledWindow m_buffscroll; \/\/ バッファ内スクロールバー$/;"	m	class:MainWindow
+m_cmdline	include/EimEngine.hpp	/^		Gtk::Entry *m_cmdline;$/;"	m	class:EimEngine
+m_cmdline	include/MainWindow.hpp	/^		Gtk::Entry m_cmdline; \/\/ コマンドライン$/;"	m	class:MainWindow
+m_editor	include/EimEngine.hpp	/^		EimEditView *m_editor;$/;"	m	class:EimEngine
+m_editor	include/MainWindow.hpp	/^		EimEditView *m_editor; \/\/ buffer$/;"	m	class:MainWindow
+m_eimEngine	include/EimEditView.hpp	/^		EimEngine *m_eimEngine;$/;"	m	class:EimEditView
+m_eimEngine	include/MainWindow.hpp	/^		EimEngine *m_eimEngine;$/;"	m	class:MainWindow
+m_mode	include/EimEngine.hpp	/^		Mode m_mode;$/;"	m	class:EimEngine
+m_pbox	include/MainWindow.hpp	/^		Gtk::VBox m_pbox; \/\/ 縦にバッファとコマンドラインを並べる$/;"	m	class:MainWindow
+m_sig_mode_changed	include/EimEditView.hpp	/^		SIG_MODE_CHANGED m_sig_mode_changed;$/;"	m	class:EimEditView
+m_stsline	include/MainWindow.hpp	/^		Gtk::Label m_stsline; \/\/ status line 現在のモード等の情報を表示する$/;"	m	class:MainWindow
 main	src/eim.cpp	/^int main(int argc, char *argv[])$/;"	f
-mode	include/BufferClass.hpp	/^				Mode mode;$/;"	m	class:BufferClass
-move_cursor	src/BufferClass.cpp	/^int BufferClass::move_cursor(int move_x, int move_y){ \/\/ {{{$/;"	f	class:BufferClass
-parse	src/CommandLineClass.cpp	/^int CommandLineClass::parse(const char *str, char *command, char *option)$/;"	f	class:CommandLineClass
-printkey	src/BufferClass.cpp	/^int BufferClass::printkey()$/;"	f	class:BufferClass
-printkey	src/BufferClass.cpp	/^int BufferClass::printkey(int str)$/;"	f	class:BufferClass
-readfile	src/BufferClass.cpp	/^int BufferClass::readfile(std::string const filename){ \/\/ {{{$/;"	f	class:BufferClass
-setWindow	src/CommandLineClass.cpp	/^int CommandLineClass::setWindow(){$/;"	f	class:CommandLineClass
-split_window	src/EimEngineClass.cpp	/^int EimEngineClass::split_window(){$/;"	f	class:EimEngineClass
-textlist	include/BufferClass.hpp	/^				std::list<std::string> textlist; \/\/ テキストファイルを一行ごとに保持する$/;"	m	class:BufferClass
-win_ptr	include/BufferClass.hpp	/^				WINDOW *win_ptr;$/;"	m	class:BufferClass
-win_ptr	include/CommandLineClass.hpp	/^				WINDOW *win_ptr;$/;"	m	class:CommandLineClass
-write2file	src/BufferClass.cpp	/^int BufferClass::write2file(std::string const filename){ \/\/ {{{$/;"	f	class:BufferClass
-~BufferClass	src/BufferClass.cpp	/^BufferClass::~BufferClass() \/\/ {{{$/;"	f	class:BufferClass
-~CommandLineClass	src/CommandLineClass.cpp	/^CommandLineClass::~CommandLineClass()$/;"	f	class:CommandLineClass
-~EimEngineClass	src/EimEngineClass.cpp	/^EimEngineClass::~EimEngineClass()$/;"	f	class:EimEngineClass
+moveModeKeyPressEvent	src/EimEngine.cpp	/^bool EimEngine::moveModeKeyPressEvent( GdkEventKey* event ) \/\/ {{{$/;"	f	class:EimEngine
+onKeyPress	src/EimEditView.cpp	/^void EimEditView::onKeyPress( GdkEventKey* event) \/\/ {{{$/;"	f	class:EimEditView
+onModeChanged	src/MainWindow.cpp	/^void MainWindow::onModeChanged()$/;"	f	class:MainWindow
+parseCmdLine	src/EimEngine.cpp	/^void EimEngine::parseCmdLine() \/\/ {{{$/;"	f	class:EimEngine
+procesKeyPressEvent	src/EimEngine.cpp	/^bool EimEngine::procesKeyPressEvent( GdkEventKey* event )$/;"	f	class:EimEngine
+readcmd	src/EimEngine.cpp	/^void EimEngine::readcmd()$/;"	f	class:EimEngine
+sig_mode_changed	src/EimEditView.cpp	/^SIG_MODE_CHANGED EimEditView::sig_mode_changed(){ return m_sig_mode_changed; }$/;"	f	class:EimEditView
+~EimEditView	src/EimEditView.cpp	/^EimEditView::~EimEditView()$/;"	f	class:EimEditView
+~EimEngine	src/EimEngine.cpp	/^EimEngine::~EimEngine()$/;"	f	class:EimEngine
+~MainWindow	src/MainWindow.cpp	/^MainWindow::~MainWindow()$/;"	f	class:MainWindow

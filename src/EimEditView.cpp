@@ -8,20 +8,22 @@
 
 EimEditView::EimEditView()
 {
-	_set_mode(MOVE); // init mode
+	//_set_mode(MOVE); // init mode
+	set_events(Gdk::KEY_PRESS_MASK);
 }
 
 EimEditView::~EimEditView()
 {
-	hide();
 }
 
-void EimEditView::onKeyPress( GdkEventKey* event) // {{{
+bool EimEditView::on_key_press_event( GdkEventKey * key_event ) // {{{
 {
 	// MOVEモードの時のみtrueが返ってくる
-	if( m_eimEngine != 0 && m_eimEngine->procesKeyPressEvent( event )) return;
+	if( m_eimEngine != 0 && m_eimEngine->procesKeyPressEvent( key_event )) return true;
 
-	Gtk::TextView::on_key_press_event( event );
+	// EDIT Modeの時のみ実行される
+	base::on_key_press_event( key_event );
+	return true;
 } // }}}
 
 
@@ -70,9 +72,7 @@ Mode EimEditView::_get_mode() { return m_eimEngine->_get_mode(); }
 void EimEditView::_set_mode(Mode mode)
 {
 	m_eimEngine->_set_mode( mode );
-	m_sig_mode_changed.emit();
 }
-SIG_MODE_CHANGED EimEditView::sig_mode_changed(){ return m_sig_mode_changed; }
 
 void EimEditView::_set_eimEngine(EimEngine *eimEngine){ m_eimEngine = eimEngine;}
 // }}}

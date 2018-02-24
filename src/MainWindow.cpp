@@ -6,11 +6,11 @@
 
 MainWindow::MainWindow()
 {
+	// キー入力イベントを書き換える
+	set_events(Gdk::KEY_PRESS_MASK);
+
 	m_editor = new EimEditView;
 	m_eimEngine = new EimEngine;
-
-	m_editor->_set_eimEngine( m_eimEngine );
-	m_eimEngine->_set_eimEditView( m_editor );
 
 	// make window gui {{{
 	m_editor->set_monospace(true); // modify font width
@@ -19,12 +19,17 @@ MainWindow::MainWindow()
 	m_buffscroll.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
 	m_buffscroll.add( *m_editor );
 
-	m_cmdline.set_text(" コマンドライン ");
+	m_editor->_set_eimEngine( m_eimEngine );
+	m_eimEngine->_set_eimEditView( m_editor );
+	m_eimEngine->_set_cmdline( &m_cmdline );
 
 	// boxに追加する
 	m_pbox.pack_start( m_buffscroll );
 	m_pbox.pack_end( m_cmdline, false, false, 0 );
 	m_pbox.pack_end( m_stsline, false, false, 0 );
+
+	m_cmdline.set_text(" コマンドライン ");
+	m_stsline.set_text("MOVE");
 
 	// 可視フレームとタイトルを持ったGtk::Frameに加える
 	add( m_pbox );
@@ -32,22 +37,18 @@ MainWindow::MainWindow()
 	resize(400, 600); // 初期ウィンドウサイズ
 	// }}}
 
-	// キー入力イベントを書き換える
-	set_events(Gdk::KEY_PRESS_MASK);
-
-	// signal_key_press_event().connect(
-		// 	sigc::mem_fun( m_editor, &EimEditView::onKeyPress) );
-
-	m_cmdline.signal_activate().connect(
-			sigc::mem_fun( m_eimEngine, &EimEngine::parseCmdLine));
-
-	m_editor->sig_mode_changed().connect(
+	m_eimEngine->sig_mode_changed().connect(
 			sigc::mem_fun( *this, &MainWindow::onModeChanged) );
 
+	// コマンドラインでのエンター時の挙動
+	m_cmdline.signal_activate().connect(
+			sigc::mem_fun( m_eimEngine, &EimEngine::parseCmdLine));
 }
 
 MainWindow::~MainWindow()
 {
+	delete m_editor;
+	delete m_eimEngine;
 }
 
 // モードが変化したときに呼ばれる ハンドラ
@@ -57,7 +58,7 @@ void MainWindow::onModeChanged()
 	switch( m_editor->_get_mode() ){
 		case CMD:
 			text = "CMD";
-			m_stsline.grab_focus();
+			m_cmdline.grab_focus();
 			break;
 		case EDIT:
 			text = "EDIT";

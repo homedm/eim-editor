@@ -7,10 +7,13 @@
 
 EimEngine::EimEngine()
 {
+	_set_mode(MOVE); // init mode
 }
 EimEngine::~EimEngine()
 {
 }
+
+SIG_MODE_CHANGED EimEngine::sig_mode_changed() { return m_sig_mode_changed; }
 
 bool EimEngine::procesKeyPressEvent( GdkEventKey* event )
 {
@@ -18,12 +21,16 @@ bool EimEngine::procesKeyPressEvent( GdkEventKey* event )
 	switch( _get_mode() )
 	{
 		case MOVE:
-			return moveModeKeyPressEvent( event ); // move mode process
+			moveModeKeyPressEvent( event ); // move mode process
+			return true;
 		case EDIT:
-			return editModeKeyPressEvent( event ); // edit mode process
+			editModeKeyPressEvent( event ); // edit mode process
+			break;
 		case CMD:
-			return cmdlineModeKeyPressEvent( event ); // cmd line mode process
+			cmdlineModeKeyPressEvent( event ); // cmd line mode process
+			break;
 	}
+	return false;
 }
 
 bool EimEngine::editModeKeyPressEvent( GdkEventKey* event ) // {{{
@@ -83,7 +90,6 @@ bool EimEngine::cmdlineModeKeyPressEvent( GdkEventKey* event ) // {{{
 	if( event->keyval == GDK_KEY_Escape )
 	{
 		_set_mode( MOVE );
-		m_editor->grab_focus(); // return focus to buffview
 	}
 	return false;
 } // }}}
@@ -91,8 +97,18 @@ bool EimEngine::cmdlineModeKeyPressEvent( GdkEventKey* event ) // {{{
 // m_cmdline上でEnter keyを押されたらcmdlineの入力を読み取る
 void EimEngine::parseCmdLine() // {{{
 {
+	// 入力されたコマンドを取得する
 	Glib::ustring cmd = m_cmdline->get_text();
-	if( cmd == "q" ) hide();
+	m_cmdline->set_text("");
+
+	// 分割
+	cmd = cmd.substr(0, cmd.length() - 1);
+
+	if( cmd.compare("q\n") ) {
+		hide();
+	}
+
+	_set_mode(MOVE);
 } // }}}
 
 void EimEngine::readcmd()
@@ -100,7 +116,10 @@ void EimEngine::readcmd()
 }
 
 // setter and getter {{{
-void EimEngine::_set_mode( Mode mode ) { m_mode = mode; }
+void EimEngine::_set_mode( Mode mode ) {
+	m_mode = mode;
+	m_sig_mode_changed.emit();
+}
 Mode EimEngine::_get_mode() { return m_mode; }
 void EimEngine::_set_eimEditView( EimEditView* view ) { m_editor = view;}
 EimEditView* EimEngine::_get_eimEditView(){ return m_editor; }
