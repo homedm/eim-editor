@@ -8,8 +8,6 @@
 
 EimEditView::EimEditView()
 {
-	//_set_mode(MOVE); // init mode
-	set_events(Gdk::KEY_PRESS_MASK);
 }
 
 EimEditView::~EimEditView()
@@ -18,7 +16,7 @@ EimEditView::~EimEditView()
 
 bool EimEditView::on_key_press_event( GdkEventKey * key_event ) // {{{
 {
-	// MOVEモードの時のみtrueが返ってくる
+	// MOVE, CMD Modeの時のみtrueが返ってくる
 	if( m_eimEngine != 0 && m_eimEngine->procesKeyPressEvent( key_event )) return true;
 
 	// EDIT Modeの時のみ実行される
@@ -67,12 +65,32 @@ bool EimEditView::cur_move_nextline()
 }
 // }}}
 
-// setter and getter {{{
-Mode EimEditView::_get_mode() { return m_eimEngine->_get_mode(); }
-void EimEditView::_set_mode(Mode mode)
+// file
+bool EimEditView::read_file( Glib::ustring filename )
 {
-	m_eimEngine->_set_mode( mode );
+	_set_fname(filename);
+
+	Glib::RefPtr <Glib::IOChannel> refChannel;
+	Glib::ustring filebuf;
+
+	try {
+		refChannel = Glib::IOChannel::create_from_file( _get_fname(), "r" );
+		Glib::ustring linebuf;
+		while ( refChannel->read_line(linebuf) == Glib::IO_STATUS_NORMAL ) filebuf += linebuf;
+	} catch ( const Glib::Exception &e ) {
+		Gtk::MessageDialog( "Failed open the file:" + _get_fname() ).run();
+	}
+
+	get_buffer()->set_text(filebuf);
+	return true;
 }
 
+// setter and getter {{{
+Mode EimEditView::_get_mode() { return m_eimEngine->_get_mode(); }
+void EimEditView::_set_mode(Mode mode) { m_eimEngine->_set_mode( mode ); }
+
 void EimEditView::_set_eimEngine(EimEngine *eimEngine){ m_eimEngine = eimEngine;}
+
+Glib::ustring EimEditView::_get_fname() { return m_fname; }
+void EimEditView::_set_fname( Glib::ustring filename ){ m_fname = filename; }
 // }}}

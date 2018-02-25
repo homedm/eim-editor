@@ -23,8 +23,6 @@ class EimEngine : public Gtk::Widget
 		bool cmdlineModeKeyPressEvent( GdkEventKey*);
 		bool moveModeKeyPressEvent( GdkEventKey* );
 
-		void readcmd();
-
 	public:
 		EimEngine();
 		~EimEngine();
