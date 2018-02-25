@@ -120,6 +120,16 @@ void EimEngine::parseCmdLine() // {{{
 	{
 		m_editor->read_file(cmd[1]);
 	}
+	if( cmd[0].compare("w") == 0 )
+	{
+		if( cmd[1].length() > 0 ){
+			m_editor->write_file(cmd[1]);
+		}
+		else
+		{
+			m_editor->write_file();
+		}
+	}
 
 	_set_mode(MOVE);
 } // }}}

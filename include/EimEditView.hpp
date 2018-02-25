@@ -30,6 +30,8 @@ class EimEditView : public Gtk::TextView // {{{
 
 		// file
 		bool read_file( Glib::ustring );
+		bool write_file( Glib::ustring );
+		bool write_file();
 		// getter and setter {{{
 		Mode _get_mode();
 		void _set_mode(Mode);

@@ -85,6 +85,44 @@ bool EimEditView::read_file( Glib::ustring filename )
 	return true;
 }
 
+bool EimEditView::write_file( Glib::ustring filename )
+{
+	_set_fname( filename );
+
+	Glib::RefPtr <Glib::IOChannel> refChannel;
+
+	try {
+		refChannel = Glib::IOChannel::create_from_file( _get_fname(), "w" );
+		Glib::ustring filebuf = get_buffer()->get_text( get_buffer()->begin(), get_buffer()->end() );
+		refChannel->write( filebuf );
+	} catch ( const Glib::Exception &e ) {
+		Gtk::MessageDialog( "Failed open the file:" + _get_fname() ).run();
+		return false;
+	}
+	return true;
+}
+
+bool EimEditView::write_file()
+{
+	// fnameがセットされているか
+	if( _get_fname().length() <= 0 )
+	{
+		Gtk::MessageDialog( "Not yet set target file" ).run();
+		return false;
+	}
+	Glib::RefPtr <Glib::IOChannel> refChannel;
+
+	try {
+		refChannel = Glib::IOChannel::create_from_file( _get_fname(), "w" );
+		Glib::ustring filebuf = get_buffer()->get_text( get_buffer()->begin(), get_buffer()->end() );
+		refChannel->write( filebuf );
+	} catch ( const Glib::Exception &e ) {
+		Gtk::MessageDialog( "Failed open the file:" + _get_fname() ).run();
+		return false;
+	}
+	return true;
+}
+
 // setter and getter {{{
 Mode EimEditView::_get_mode() { return m_eimEngine->_get_mode(); }
 void EimEditView::_set_mode(Mode mode) { m_eimEngine->_set_mode( mode ); }
