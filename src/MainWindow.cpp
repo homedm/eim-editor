@@ -28,7 +28,7 @@ MainWindow::MainWindow()
 	m_pbox.pack_end( m_cmdline, false, false, 0 );
 	m_pbox.pack_end( m_stsline, false, false, 0 );
 
-	m_cmdline.set_text(" コマンドライン ");
+	m_cmdline.set_text("Command Line");
 	m_stsline.set_text("MOVE");
 
 	// 可視フレームとタイトルを持ったGtk::Frameに加える

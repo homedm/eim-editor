@@ -24,9 +24,6 @@ bool EimEngine::procesKeyPressEvent( GdkEventKey* event )
 			moveModeKeyPressEvent( event ); // move mode process
 			return true;
 		case CMD:
-			m_editor->get_buffer()->backspace(
-					m_editor->get_buffer()->get_insert()->get_iter()
-					);
 			cmdlineModeKeyPressEvent( event ); // cmd line mode process
 			return true;
 		case EDIT:

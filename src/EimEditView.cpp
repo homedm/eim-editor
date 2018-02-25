@@ -20,7 +20,8 @@ bool EimEditView::on_key_press_event( GdkEventKey * key_event ) // {{{
 	if( m_eimEngine != 0 && m_eimEngine->procesKeyPressEvent( key_event )) return true;
 
 	// EDIT Modeの時のみ実行される
-	base::on_key_press_event( key_event );
+	// キー入力がそのまま入力される
+	if( _get_mode() == EDIT ) base::on_key_press_event( key_event );
 	return true;
 } // }}}
 
@@ -77,11 +78,12 @@ bool EimEditView::read_file( Glib::ustring filename )
 		refChannel = Glib::IOChannel::create_from_file( _get_fname(), "r" );
 		Glib::ustring linebuf;
 		while ( refChannel->read_line(linebuf) == Glib::IO_STATUS_NORMAL ) filebuf += linebuf;
+		// show text file
+		get_buffer()->set_text(filebuf);
 	} catch ( const Glib::Exception &e ) {
 		Gtk::MessageDialog( "Failed open the file:" + _get_fname() ).run();
 	}
 
-	get_buffer()->set_text(filebuf);
 	return true;
 }
 
