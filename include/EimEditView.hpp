@@ -12,7 +12,11 @@ class EimEditView : public Gtk::TextView // {{{
 {
 	private:
 		EimEngine *m_eimEngine;
+		Glib::ustring m_fname;
 		typedef Gtk::TextView base;
+
+	protected:
+		virtual bool on_key_press_event( GdkEventKey* event); // 入力されたキーをEimEngineに渡す
 
 	public:
 		EimEditView();
@@ -24,15 +28,17 @@ class EimEditView : public Gtk::TextView // {{{
 		bool cur_move_preline();
 		bool cur_move_nextline();
 
+		// file
+		bool read_file( Glib::ustring );
 		// getter and setter {{{
 		Mode _get_mode();
 		void _set_mode(Mode);
 
 		void _set_eimEngine(EimEngine*);
-		// }}}
 
-	protected:
-		virtual bool on_key_press_event( GdkEventKey* event); // 入力されたキーをEimEngineに渡す
+		Glib::ustring _get_fname();
+		void _set_fname(Glib::ustring);
+		// }}}
 }; // }}}
 
 #endif //INC_EIMEDITVIEW

@@ -100,19 +100,29 @@ bool EimEngine::cmdlineModeKeyPressEvent( GdkEventKey* event ) // {{{
 void EimEngine::parseCmdLine() // {{{
 {
 	// 入力されたコマンドを取得する
-	Glib::ustring cmd = m_cmdline->get_text();
+	Glib::ustring cmd_text = m_cmdline->get_text();
 	m_cmdline->set_text("");
 
-	if( cmd.compare("q") == 0 ) { // compareは等しいとき0を返す
+	std::vector<Glib::ustring> cmd;
+	Glib::ustring sep = " ";
+	for(int i = 0, n; i <= cmd_text.length(); i=n+1){
+		n = cmd_text.find_first_of( sep, i );
+		if( n == Glib::ustring::npos ){ n = cmd_text.length(); }
+		Glib::ustring tmp = cmd_text.substr( i, n-i );
+		cmd.push_back(tmp);
+	}
+
+	if( cmd[0].compare("q") == 0 ) // compareは等しいとき0を返す
+	{
 		exit(0);
+	}
+	if( cmd[0].compare("e") == 0 )
+	{
+		m_editor->read_file(cmd[1]);
 	}
 
 	_set_mode(MOVE);
 } // }}}
-
-void EimEngine::readcmd()
-{
-}
 
 // setter and getter {{{
 void EimEngine::_set_mode( Mode mode ) {
