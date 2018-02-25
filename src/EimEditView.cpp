@@ -8,8 +8,6 @@
 
 EimEditView::EimEditView()
 {
-	//_set_mode(MOVE); // init mode
-	set_events(Gdk::KEY_PRESS_MASK);
 }
 
 EimEditView::~EimEditView()
