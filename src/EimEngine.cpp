@@ -53,6 +53,7 @@ bool EimEngine::moveModeKeyPressEvent( GdkEventKey* event ) // {{{
 	if( key == GDK_KEY_i)
 	{
 		_set_mode( EDIT );
+		return true;
 	}
 	if( key == GDK_KEY_colon
 			&& event->state == Gdk::CONTROL_MASK )
@@ -80,8 +81,10 @@ bool EimEngine::moveModeKeyPressEvent( GdkEventKey* event ) // {{{
 		// to go right
 		m_editor->cur_move_forward();
 	}
+
+	m_editor->scroll_adjust();
 	//}}}
-	return false;
+	return true;
 } // }}}
 
 bool EimEngine::cmdlineModeKeyPressEvent( GdkEventKey* event ) // {{{

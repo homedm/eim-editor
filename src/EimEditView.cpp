@@ -64,6 +64,14 @@ bool EimEditView::cur_move_nextline()
 	get_buffer()->place_cursor(iter);
 	return true;
 }
+
+// カーソルが画面外に出ないようにスクロールして調節する
+void EimEditView::scroll_adjust( double within_margin )
+{
+	Gtk::TextIter iter = get_buffer()->get_insert()->get_iter();
+	scroll_to(iter, within_margin);
+	return;
+}
 // }}}
 
 // file
