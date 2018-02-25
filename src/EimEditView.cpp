@@ -18,7 +18,7 @@ EimEditView::~EimEditView()
 
 bool EimEditView::on_key_press_event( GdkEventKey * key_event ) // {{{
 {
-	// MOVEモードの時のみtrueが返ってくる
+	// MOVE, CMD Modeの時のみtrueが返ってくる
 	if( m_eimEngine != 0 && m_eimEngine->procesKeyPressEvent( key_event )) return true;
 
 	// EDIT Modeの時のみ実行される

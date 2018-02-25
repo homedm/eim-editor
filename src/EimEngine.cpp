@@ -23,14 +23,16 @@ bool EimEngine::procesKeyPressEvent( GdkEventKey* event )
 		case MOVE:
 			moveModeKeyPressEvent( event ); // move mode process
 			return true;
+		case CMD:
+			m_editor->get_buffer()->backspace(
+					m_editor->get_buffer()->get_insert()->get_iter()
+					);
+			cmdlineModeKeyPressEvent( event ); // cmd line mode process
+			return true;
 		case EDIT:
 			editModeKeyPressEvent( event ); // edit mode process
-			break;
-		case CMD:
-			cmdlineModeKeyPressEvent( event ); // cmd line mode process
-			break;
+			return false;
 	}
-	return false;
 }
 
 bool EimEngine::editModeKeyPressEvent( GdkEventKey* event ) // {{{
