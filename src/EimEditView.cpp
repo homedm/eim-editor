@@ -1,10 +1,9 @@
-// EimEditView.cpp ---
+// EimEditView.cpp --- Buffer class
 #include <gtkmm.h>
 #include <memory>
-#include <locale.h>
 #include "../include/enum.hpp"
-#include "../include/EimEditView.hpp"
 #include "../include/EimEngine.hpp"
+#include "../include/EimEditView.hpp"
 
 EimEditView::EimEditView()
 {

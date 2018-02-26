@@ -1,8 +1,9 @@
 // EimEngine.cpp --- ユーザ入力コマンドを処理する
 #include <gtkmm.h>
 #include <memory>
-#include "../include/EimEditView.hpp"
 #include "../include/enum.hpp"
+#include "../include/EimEditView.hpp"
+#include "../include/EimCmdLine.hpp"
 #include "../include/EimEngine.hpp"
 
 EimEngine::EimEngine()
@@ -25,7 +26,7 @@ bool EimEngine::procesKeyPressEvent( GdkEventKey* event )
 			return true;
 		case CMD:
 			cmdlineModeKeyPressEvent( event ); // cmd line mode process
-			return true;
+			return false;
 		case EDIT:
 			editModeKeyPressEvent( event ); // edit mode process
 			return false;
@@ -109,20 +110,28 @@ bool EimEngine::moveModeKeyPressEvent( GdkEventKey* event ) // {{{
 
 bool EimEngine::cmdlineModeKeyPressEvent( GdkEventKey* event ) // {{{
 {
-	if( event->keyval == GDK_KEY_Escape )
+	guint key = event->keyval;
+	if( key == GDK_KEY_Escape )
 	{
+		m_cmdline->set_text(""); // clear text in cmd line
 		_set_mode( MOVE );
+	}
+	if( key == GDK_KEY_p
+			&& event->state == Gdk::CONTROL_MASK )
+	{
+		m_cmdline->show_pre_cmdhist();
+	}
+	if( key == GDK_KEY_n
+			&& event->state == Gdk::CONTROL_MASK )
+	{
+		m_cmdline->show_next_cmdhist();
 	}
 	return false;
 } // }}}
 
 // m_cmdline上でEnter keyを押されたらcmdlineの入力を読み取る
-void EimEngine::parseCmdLine() // {{{
+void EimEngine::parseCmdLine(Glib::ustring cmd_text) // {{{
 {
-	// 入力されたコマンドを取得する
-	Glib::ustring cmd_text = m_cmdline->get_text();
-	m_cmdline->set_text("");
-
 	std::vector<Glib::ustring> cmd;
 	Glib::ustring sep = " ";
 	for(int i = 0, n; i <= cmd_text.length(); i=n+1){
@@ -162,5 +171,5 @@ void EimEngine::_set_mode( Mode mode ) {
 Mode EimEngine::_get_mode() { return m_mode; }
 void EimEngine::_set_eimEditView( EimEditView* view ) { m_editor = view;}
 EimEditView* EimEngine::_get_eimEditView(){ return m_editor; }
-void EimEngine::_set_cmdline( Gtk::Entry* cmdline ){ m_cmdline = cmdline; }
+void EimEngine::_set_cmdline( EimCmdLine* cmdline ){ m_cmdline = cmdline; }
 // }}}

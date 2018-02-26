@@ -4,9 +4,10 @@
 #include <gtkmm.h>
 #include <memory>
 #include "enum.hpp"
-#include "EimEditView.hpp"
 
+class MainWindow;
 class EimEditView;
+class EimCmdLine;
 
 typedef sigc::signal<void> SIG_MODE_CHANGED;
 
@@ -16,7 +17,7 @@ class EimEngine : public Gtk::Widget
 	private:
 		Mode m_mode;
 		EimEditView *m_editor;
-		Gtk::Entry *m_cmdline;
+		EimCmdLine *m_cmdline;
 		SIG_MODE_CHANGED m_sig_mode_changed;
 
 		bool editModeKeyPressEvent( GdkEventKey* );
@@ -28,7 +29,7 @@ class EimEngine : public Gtk::Widget
 		~EimEngine();
 
 		bool procesKeyPressEvent( GdkEventKey* );
-		void parseCmdLine();
+		void parseCmdLine(Glib::ustring);
 		SIG_MODE_CHANGED sig_mode_changed();
 
 		// setter and getter
@@ -36,6 +37,6 @@ class EimEngine : public Gtk::Widget
 		Mode _get_mode();
 		void _set_eimEditView( EimEditView* );
 		EimEditView* _get_eimEditView();
-		void _set_cmdline( Gtk::Entry* );
+		void _set_cmdline( EimCmdLine* );
 };
 #endif // INC_EIMENGINE
