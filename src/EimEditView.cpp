@@ -26,7 +26,7 @@ bool EimEditView::on_key_press_event( GdkEventKey * key_event ) // {{{
 } // }}}
 
 
-// ### move command methods {{{
+// ### move command methods ### {{{
 bool EimEditView::cur_move_forward()
 {
 	Gtk::TextIter iter = get_buffer()->get_insert()->get_iter();
@@ -74,7 +74,17 @@ void EimEditView::scroll_adjust( double within_margin )
 }
 // }}}
 
-// file
+// ### delete command methods ### {{{
+void EimEditView::backspace_one_char()
+{
+	Gtk::TextIter iter = get_buffer()->get_insert()->get_iter();
+	// delete left character on cursor
+	get_buffer()->backspace( iter );
+	return;
+}
+// }}}
+
+// ### file ###  {{{
 bool EimEditView::read_file( Glib::ustring filename )
 {
 	_set_fname(filename);
@@ -132,8 +142,9 @@ bool EimEditView::write_file()
 	}
 	return true;
 }
+// }}}
 
-// setter and getter {{{
+// setter and getter  {{{
 Mode EimEditView::_get_mode() { return m_eimEngine->_get_mode(); }
 void EimEditView::_set_mode(Mode mode) { m_eimEngine->_set_mode( mode ); }
 

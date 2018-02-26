@@ -29,6 +29,9 @@ class EimEditView : public Gtk::TextView // {{{
 		bool cur_move_nextline();
 		void scroll_adjust( double within_margin=0.05 );
 
+		// delete
+		void backspace_one_char();
+
 		// file
 		bool read_file( Glib::ustring );
 		bool write_file( Glib::ustring );

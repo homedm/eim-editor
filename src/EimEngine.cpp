@@ -84,6 +84,12 @@ bool EimEngine::moveModeKeyPressEvent( GdkEventKey* event ) // {{{
 
 	m_editor->scroll_adjust();
 	//}}}
+	// delete commands {{{
+	if( key == GDK_KEY_x )
+	{
+		// delete left character on cursor
+		m_editor->backspace_one_char();
+	}
 	return true;
 } // }}}
 
