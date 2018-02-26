@@ -81,14 +81,28 @@ bool EimEngine::moveModeKeyPressEvent( GdkEventKey* event ) // {{{
 		// to go right
 		m_editor->cur_move_forward();
 	}
+	//}}}
+	// word movement
+	if( key == GDK_KEY_w )
+	{
+		m_editor->cur_move_forward_word_start();
+	}
+	if( key == GDK_KEY_b )
+	{
+		m_editor->cur_move_backward_word_start();
+	}
 
 	m_editor->scroll_adjust();
-	//}}}
 	// delete commands {{{
 	if( key == GDK_KEY_x )
 	{
 		// delete left character on cursor
 		m_editor->backspace_one_char();
+	}
+	if( key == GDK_KEY_d )
+	{
+		// delete right character on cursor
+		m_editor->delete_one_char();
 	}
 	return true;
 } // }}}

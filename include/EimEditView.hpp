@@ -27,10 +27,13 @@ class EimEditView : public Gtk::TextView // {{{
 		bool cur_move_backward();
 		bool cur_move_preline();
 		bool cur_move_nextline();
+		bool cur_move_forward_word_start();
+		bool cur_move_backward_word_start();
 		void scroll_adjust( double within_margin=0.05 );
 
 		// delete
 		void backspace_one_char();
+		void delete_one_char();
 
 		// file
 		bool read_file( Glib::ustring );

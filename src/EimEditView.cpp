@@ -30,15 +30,37 @@ bool EimEditView::on_key_press_event( GdkEventKey * key_event ) // {{{
 bool EimEditView::cur_move_forward()
 {
 	Gtk::TextIter iter = get_buffer()->get_insert()->get_iter();
-	iter.forward_char();
-	get_buffer()->place_cursor(iter);
-	return true;
+	if( iter.forward_char() )
+	{
+		get_buffer()->place_cursor(iter);
+		return true;
+	}
+	return false;
 }
 
 bool EimEditView::cur_move_backward()
 {
 	Gtk::TextIter iter = get_buffer()->get_insert()->get_iter();
 	iter.backward_char();
+	get_buffer()->place_cursor(iter);
+	return true;
+}
+
+bool EimEditView::cur_move_forward_word_start()
+{
+	Gtk::TextIter iter = get_buffer()->get_insert()->get_iter();
+	// 次の単語の先頭に移動するメソッドが内ので
+	iter.forward_word_end();
+	iter.forward_word_end();
+	iter.backward_word_start();
+	get_buffer()->place_cursor(iter);
+	return true;
+}
+
+bool EimEditView::cur_move_backward_word_start()
+{
+	Gtk::TextIter iter = get_buffer()->get_insert()->get_iter();
+	iter.backward_word_start();
 	get_buffer()->place_cursor(iter);
 	return true;
 }
@@ -82,6 +104,15 @@ void EimEditView::backspace_one_char()
 	get_buffer()->backspace( iter );
 	return;
 }
+void EimEditView::delete_one_char()
+{
+	// delete right character on cursor
+	if( cur_move_forward() )
+	{
+		Gtk::TextIter iter = get_buffer()->get_insert()->get_iter();
+		get_buffer()->backspace( iter );
+	}
+}
 // }}}
 
 // ### file ###  {{{
@@ -98,6 +129,8 @@ bool EimEditView::read_file( Glib::ustring filename )
 		while ( refChannel->read_line(linebuf) == Glib::IO_STATUS_NORMAL ) filebuf += linebuf;
 		// show text file
 		get_buffer()->set_text(filebuf);
+		Gtk::TextIter iter = get_buffer()->get_insert()->get_iter();
+		iter.set_line(0);
 	} catch ( const Glib::Exception &e ) {
 		Gtk::MessageDialog( "Failed open the file:" + _get_fname() ).run();
 	}
