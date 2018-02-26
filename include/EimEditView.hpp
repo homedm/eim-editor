@@ -1,12 +1,13 @@
-// EimEditView.cpp --- 見た目を管理するクラス
+// EimEditView.hpp --- 見た目を管理するクラス
 #ifndef _INC_EIMEDITVIEW
 #define _INC_EIMEDITVIEW
 #include <gtkmm.h>
+#include <glibmm.h>
 #include <string>
 #include "enum.hpp"
-#include "EimEngine.hpp"
 
 class EimEngine;
+class EimCmdLine;
 
 class EimEditView : public Gtk::TextView // {{{
 {
@@ -16,7 +17,7 @@ class EimEditView : public Gtk::TextView // {{{
 		typedef Gtk::TextView base;
 
 	protected:
-		virtual bool on_key_press_event( GdkEventKey* event); // 入力されたキーをEimEngineに渡す
+		virtual bool on_key_press_event( GdkEventKey* ); // 入力されたキーをEimEngineに渡す
 
 	public:
 		EimEditView();
@@ -49,5 +50,4 @@ class EimEditView : public Gtk::TextView // {{{
 		void _set_fname(Glib::ustring);
 		// }}}
 }; // }}}
-
 #endif //INC_EIMEDITVIEW

@@ -1,11 +1,13 @@
-// EimEditView.cpp --- 見た目を管理するクラス
+// MainWindow.cpp --- 見た目を管理するクラス
 #ifndef _INC_MAINWINDOW
 #define _INC_MAINWINDOW
 #include <gtkmm.h>
 #include <string>
 #include "enum.hpp"
-#include "EimEngine.hpp"
-#include "EimEditView.hpp"
+
+class EimEditView;
+class EimCmdLine;
+class EimEngine;
 
 class MainWindow : public Gtk::Window // {{{
 {
@@ -20,7 +22,7 @@ class MainWindow : public Gtk::Window // {{{
 		EimEditView *m_editor; // buffer
 		Gtk::VBox m_pbox; // 縦にバッファとコマンドラインを並べる
 		Gtk::ScrolledWindow m_buffscroll; // バッファ内スクロールバー
-		Gtk::Entry m_cmdline; // コマンドライン
+		EimCmdLine *m_cmdline;
 		Gtk::Label m_stsline; // status line 現在のモード等の情報を表示する
 
 		EimEngine *m_eimEngine;

@@ -1,7 +1,9 @@
 #include <gtkmm.h>
-#include "../include/EimEditView.hpp"
-#include "../include/EimEngine.hpp"
+#include <glibmm.h>
 #include "../include/enum.hpp"
+#include "../include/EimEditView.hpp"
+#include "../include/EimCmdLine.hpp"
+#include "../include/EimEngine.hpp"
 #include "../include/MainWindow.hpp"
 
 MainWindow::MainWindow()
@@ -10,6 +12,7 @@ MainWindow::MainWindow()
 	set_events(Gdk::KEY_PRESS_MASK);
 
 	m_editor = new EimEditView;
+	m_cmdline = new EimCmdLine;
 	m_eimEngine = new EimEngine;
 
 	// make window gui {{{
@@ -21,20 +24,20 @@ MainWindow::MainWindow()
 
 	m_editor->_set_eimEngine( m_eimEngine );
 	m_eimEngine->_set_eimEditView( m_editor );
-	m_eimEngine->_set_cmdline( &m_cmdline );
+	m_eimEngine->_set_cmdline( m_cmdline );
+	m_cmdline->_set_eimEngine( m_eimEngine );
 
 	// boxに追加する
 	m_pbox.pack_start( m_buffscroll );
-	m_pbox.pack_end( m_cmdline, false, false, 0 );
+	m_pbox.pack_end( &m_cmdline, false, false, 0 );
 	m_pbox.pack_end( m_stsline, false, false, 0 );
 
-	m_cmdline.set_text("Command Line");
 	m_stsline.set_text("MOVE");
 
 	// 可視フレームとタイトルを持ったGtk::Frameに加える
 	add( m_pbox );
 	show_all_children();
-	resize(400, 600); // 初期ウィンドウサイズ
+	resize(400, 500); // 初期ウィンドウサイズ
 	// }}}
 
 	m_eimEngine->sig_mode_changed().connect(
@@ -42,7 +45,7 @@ MainWindow::MainWindow()
 
 	// コマンドラインでのエンター時の挙動
 	m_cmdline.signal_activate().connect(
-			sigc::mem_fun( m_eimEngine, &EimEngine::parseCmdLine));
+			sigc::mem_fun( m_cmdline, &EimCmdLine::on_key_press_enter));
 }
 
 MainWindow::~MainWindow()
