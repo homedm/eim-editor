@@ -33,8 +33,12 @@ This mode is like insert mode in Vim.
 This mode is like command mode in Vim.
 You go this mode by pressing ^: key and you would return move key by
 pressing ESC key or Enter key.
+- q
+quit the program.
 - e filename
 open the file.
+- ^p or ^n
+previous command history or next command history
 
 # Install
 make install
