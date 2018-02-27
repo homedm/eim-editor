@@ -27,3 +27,6 @@ EimEngine.o: EimEngine.cpp
 
 clean:
 	rm -f *.o $(PROGRAM)
+
+install: $(PROGRAM)
+	install -s $(PROGRAM) $(DEST)
