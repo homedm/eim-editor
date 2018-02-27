@@ -13,6 +13,8 @@ DEST	src/makefile	/^DEST = \/usr\/local\/bin$/;"	m
 EDIT	include/enum.hpp	/^	EDIT,$/;"	e	enum:Mode
 ERROR	include/enum.hpp	7;"	d
 EXITPROGRAM	include/enum.hpp	5;"	d
+EimCmdLine	include/EimCmdLine.hpp	/^class EimCmdLine : public Gtk::Entry$/;"	c
+EimCmdLine	src/EimCmdLine.cpp	/^EimCmdLine::EimCmdLine()$/;"	f	class:EimCmdLine
 EimEditView	include/EimEditView.hpp	/^class EimEditView : public Gtk::TextView \/\/ {{{$/;"	c
 EimEditView	src/EimEditView.cpp	/^EimEditView::EimEditView()$/;"	f	class:EimEditView
 EimEngine	include/EimEngine.hpp	/^class EimEngine : public Gtk::Widget$/;"	c
@@ -26,39 +28,54 @@ MainWindow	include/MainWindow.hpp	/^class MainWindow : public Gtk::Window \/\/ {
 MainWindow	src/MainWindow.cpp	/^MainWindow::MainWindow()$/;"	f	class:MainWindow
 Mode	include/enum.hpp	/^enum Mode {$/;"	g
 OBJDIR	src/makefile	/^OBJDIR = .\/obj$/;"	m
-OBJS	src/makefile	/^OBJS = eim.o EimEditView.o EimEngine.o MainWindow.o$/;"	m
+OBJS	src/makefile	/^OBJS = eim.o EimEditView.o EimCmdLine.o EimEngine.o MainWindow.o$/;"	m
 PROGRAM	src/makefile	/^PROGRAM = ..\/bin\/eim$/;"	m
 SIG_MODE_CHANGED	include/EimEngine.hpp	/^typedef sigc::signal<void> SIG_MODE_CHANGED;$/;"	t
 SUCCESS	include/enum.hpp	6;"	d
+_INC_EIMCMDLINE	include/EimCmdLine.hpp	3;"	d
 _INC_EIMEDITVIEW	include/EimEditView.hpp	3;"	d
 _INC_EIMENGINE	include/EimEngine.hpp	3;"	d
 _INC_ENUM	include/enum.hpp	2;"	d
 _INC_MAINWINDOW	include/MainWindow.hpp	3;"	d
 _get_eimEditView	src/EimEngine.cpp	/^EimEditView* EimEngine::_get_eimEditView(){ return m_editor; }$/;"	f	class:EimEngine
 _get_fname	src/EimEditView.cpp	/^Glib::ustring EimEditView::_get_fname() { return m_fname; }$/;"	f	class:EimEditView
+_get_mode	src/EimCmdLine.cpp	/^Mode EimCmdLine::_get_mode(){ return m_eimEngine->_get_mode(); }$/;"	f	class:EimCmdLine
 _get_mode	src/EimEditView.cpp	/^Mode EimEditView::_get_mode() { return m_eimEngine->_get_mode(); }$/;"	f	class:EimEditView
 _get_mode	src/EimEngine.cpp	/^Mode EimEngine::_get_mode() { return m_mode; }$/;"	f	class:EimEngine
-_set_cmdline	src/EimEngine.cpp	/^void EimEngine::_set_cmdline( Gtk::Entry* cmdline ){ m_cmdline = cmdline; }$/;"	f	class:EimEngine
+_set_cmdline	src/EimEngine.cpp	/^void EimEngine::_set_cmdline( EimCmdLine* cmdline ){ m_cmdline = cmdline; }$/;"	f	class:EimEngine
 _set_eimEditView	src/EimEngine.cpp	/^void EimEngine::_set_eimEditView( EimEditView* view ) { m_editor = view;}$/;"	f	class:EimEngine
+_set_eimEngine	src/EimCmdLine.cpp	/^void EimCmdLine::_set_eimEngine(EimEngine* eimEngine) { m_eimEngine = eimEngine; }$/;"	f	class:EimCmdLine
 _set_eimEngine	src/EimEditView.cpp	/^void EimEditView::_set_eimEngine(EimEngine *eimEngine){ m_eimEngine = eimEngine;}$/;"	f	class:EimEditView
 _set_fname	src/EimEditView.cpp	/^void EimEditView::_set_fname( Glib::ustring filename ){ m_fname = filename; }$/;"	f	class:EimEditView
+_set_mode	src/EimCmdLine.cpp	/^void EimCmdLine::_set_mode(Mode mode){ m_eimEngine->_set_mode(mode); }$/;"	f	class:EimCmdLine
 _set_mode	src/EimEditView.cpp	/^void EimEditView::_set_mode(Mode mode) { m_eimEngine->_set_mode( mode ); }$/;"	f	class:EimEditView
 _set_mode	src/EimEngine.cpp	/^void EimEngine::_set_mode( Mode mode ) {$/;"	f	class:EimEngine
+backspace_one_char	src/EimEditView.cpp	/^void EimEditView::backspace_one_char()$/;"	f	class:EimEditView
+base	include/EimCmdLine.hpp	/^		typedef Gtk::Entry base;$/;"	t	class:EimCmdLine
 base	include/EimEditView.hpp	/^		typedef Gtk::TextView base;$/;"	t	class:EimEditView
 cmdlineModeKeyPressEvent	src/EimEngine.cpp	/^bool EimEngine::cmdlineModeKeyPressEvent( GdkEventKey* event ) \/\/ {{{$/;"	f	class:EimEngine
 cur_move_backward	src/EimEditView.cpp	/^bool EimEditView::cur_move_backward()$/;"	f	class:EimEditView
+cur_move_backward_word_start	src/EimEditView.cpp	/^bool EimEditView::cur_move_backward_word_start()$/;"	f	class:EimEditView
 cur_move_forward	src/EimEditView.cpp	/^bool EimEditView::cur_move_forward()$/;"	f	class:EimEditView
+cur_move_forward_word_start	src/EimEditView.cpp	/^bool EimEditView::cur_move_forward_word_start()$/;"	f	class:EimEditView
 cur_move_nextline	src/EimEditView.cpp	/^bool EimEditView::cur_move_nextline()$/;"	f	class:EimEditView
 cur_move_preline	src/EimEditView.cpp	/^bool EimEditView::cur_move_preline()$/;"	f	class:EimEditView
+delete_history	src/EimCmdLine.cpp	/^void EimCmdLine::delete_history()$/;"	f	class:EimCmdLine
+delete_one_char	src/EimEditView.cpp	/^void EimEditView::delete_one_char()$/;"	f	class:EimEditView
 editModeKeyPressEvent	src/EimEngine.cpp	/^bool EimEngine::editModeKeyPressEvent( GdkEventKey* event ) \/\/ {{{$/;"	f	class:EimEngine
+get_next_history	src/EimCmdLine.cpp	/^Glib::ustring EimCmdLine::get_next_history()$/;"	f	class:EimCmdLine
+get_pre_history	src/EimCmdLine.cpp	/^Glib::ustring EimCmdLine::get_pre_history()$/;"	f	class:EimCmdLine
 m_buffscroll	include/MainWindow.hpp	/^		Gtk::ScrolledWindow m_buffscroll; \/\/ バッファ内スクロールバー$/;"	m	class:MainWindow
-m_cmdline	include/EimEngine.hpp	/^		Gtk::Entry *m_cmdline;$/;"	m	class:EimEngine
-m_cmdline	include/MainWindow.hpp	/^		Gtk::Entry m_cmdline; \/\/ コマンドライン$/;"	m	class:MainWindow
+m_cmdhistory	include/EimCmdLine.hpp	/^		std::list<Glib::ustring> m_cmdhistory;$/;"	m	class:EimCmdLine
+m_cmdline	include/EimEngine.hpp	/^		EimCmdLine *m_cmdline;$/;"	m	class:EimEngine
+m_cmdline	include/MainWindow.hpp	/^		EimCmdLine *m_cmdline;$/;"	m	class:MainWindow
 m_editor	include/EimEngine.hpp	/^		EimEditView *m_editor;$/;"	m	class:EimEngine
 m_editor	include/MainWindow.hpp	/^		EimEditView *m_editor; \/\/ buffer$/;"	m	class:MainWindow
+m_eimEngine	include/EimCmdLine.hpp	/^		EimEngine *m_eimEngine;$/;"	m	class:EimCmdLine
 m_eimEngine	include/EimEditView.hpp	/^		EimEngine *m_eimEngine;$/;"	m	class:EimEditView
 m_eimEngine	include/MainWindow.hpp	/^		EimEngine *m_eimEngine;$/;"	m	class:MainWindow
 m_fname	include/EimEditView.hpp	/^		Glib::ustring m_fname;$/;"	m	class:EimEditView
+m_iter	include/EimCmdLine.hpp	/^		auto m_iter;$/;"	m	class:EimCmdLine
 m_mode	include/EimEngine.hpp	/^		Mode m_mode;$/;"	m	class:EimEngine
 m_pbox	include/MainWindow.hpp	/^		Gtk::VBox m_pbox; \/\/ 縦にバッファとコマンドラインを並べる$/;"	m	class:MainWindow
 m_sig_mode_changed	include/EimEngine.hpp	/^		SIG_MODE_CHANGED m_sig_mode_changed;$/;"	m	class:EimEngine
@@ -66,13 +83,18 @@ m_stsline	include/MainWindow.hpp	/^		Gtk::Label m_stsline; \/\/ status line 現�
 main	src/eim.cpp	/^int main(int argc, char *argv[])$/;"	f
 moveModeKeyPressEvent	src/EimEngine.cpp	/^bool EimEngine::moveModeKeyPressEvent( GdkEventKey* event ) \/\/ {{{$/;"	f	class:EimEngine
 onModeChanged	src/MainWindow.cpp	/^void MainWindow::onModeChanged()$/;"	f	class:MainWindow
+on_key_press_enter	src/EimCmdLine.cpp	/^void EimCmdLine::on_key_press_enter()$/;"	f	class:EimCmdLine
+on_key_press_event	src/EimCmdLine.cpp	/^bool EimCmdLine::on_key_press_event( GdkEventKey * key_event )$/;"	f	class:EimCmdLine
 on_key_press_event	src/EimEditView.cpp	/^bool EimEditView::on_key_press_event( GdkEventKey * key_event ) \/\/ {{{$/;"	f	class:EimEditView
-parseCmdLine	src/EimEngine.cpp	/^void EimEngine::parseCmdLine() \/\/ {{{$/;"	f	class:EimEngine
+parseCmdLine	src/EimEngine.cpp	/^void EimEngine::parseCmdLine(Glib::ustring cmd_text) \/\/ {{{$/;"	f	class:EimEngine
 procesKeyPressEvent	src/EimEngine.cpp	/^bool EimEngine::procesKeyPressEvent( GdkEventKey* event )$/;"	f	class:EimEngine
+push_back_history	src/EimCmdLine.cpp	/^void EimCmdLine::push_back_history(Glig:ustring cmd)$/;"	f	class:EimCmdLine
 read_file	src/EimEditView.cpp	/^bool EimEditView::read_file( Glib::ustring filename )$/;"	f	class:EimEditView
+scroll_adjust	src/EimEditView.cpp	/^void EimEditView::scroll_adjust( double within_margin )$/;"	f	class:EimEditView
 sig_mode_changed	src/EimEngine.cpp	/^SIG_MODE_CHANGED EimEngine::sig_mode_changed() { return m_sig_mode_changed; }$/;"	f	class:EimEngine
 write_file	src/EimEditView.cpp	/^bool EimEditView::write_file( Glib::ustring filename )$/;"	f	class:EimEditView
 write_file	src/EimEditView.cpp	/^bool EimEditView::write_file()$/;"	f	class:EimEditView
+~EimCmdLine	src/EimCmdLine.cpp	/^EimCmdLine::~EimCmdLine()$/;"	f	class:EimCmdLine
 ~EimEditView	src/EimEditView.cpp	/^EimEditView::~EimEditView()$/;"	f	class:EimEditView
 ~EimEngine	src/EimEngine.cpp	/^EimEngine::~EimEngine()$/;"	f	class:EimEngine
 ~MainWindow	src/MainWindow.cpp	/^MainWindow::~MainWindow()$/;"	f	class:MainWindow

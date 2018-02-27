@@ -29,7 +29,7 @@ MainWindow::MainWindow()
 
 	// boxに追加する
 	m_pbox.pack_start( m_buffscroll );
-	m_pbox.pack_end( &m_cmdline, false, false, 0 );
+	m_pbox.pack_end( *m_cmdline, false, false, 0 );
 	m_pbox.pack_end( m_stsline, false, false, 0 );
 
 	m_stsline.set_text("MOVE");
@@ -44,7 +44,7 @@ MainWindow::MainWindow()
 			sigc::mem_fun( *this, &MainWindow::onModeChanged) );
 
 	// コマンドラインでのエンター時の挙動
-	m_cmdline.signal_activate().connect(
+	m_cmdline->signal_activate().connect(
 			sigc::mem_fun( m_cmdline, &EimCmdLine::on_key_press_enter));
 }
 
@@ -52,6 +52,7 @@ MainWindow::~MainWindow()
 {
 	delete m_editor;
 	delete m_eimEngine;
+	delete m_cmdline;
 }
 
 // モードが変化したときに呼ばれる ハンドラ
@@ -61,7 +62,8 @@ void MainWindow::onModeChanged()
 	switch( m_editor->_get_mode() ){
 		case CMD:
 			text = "CMD";
-			m_cmdline.grab_focus();
+			m_cmdline->set_iter();
+			m_cmdline->grab_focus();
 			break;
 		case EDIT:
 			text = "EDIT";

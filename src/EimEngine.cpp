@@ -26,7 +26,7 @@ bool EimEngine::procesKeyPressEvent( GdkEventKey* event )
 			return true;
 		case CMD:
 			cmdlineModeKeyPressEvent( event ); // cmd line mode process
-			return true;
+			return false;
 		case EDIT:
 			editModeKeyPressEvent( event ); // edit mode process
 			return false;
@@ -110,9 +110,21 @@ bool EimEngine::moveModeKeyPressEvent( GdkEventKey* event ) // {{{
 
 bool EimEngine::cmdlineModeKeyPressEvent( GdkEventKey* event ) // {{{
 {
-	if( event->keyval == GDK_KEY_Escape )
+	guint key = event->keyval;
+	if( key == GDK_KEY_Escape )
 	{
+		m_cmdline->set_text(""); // clear text in cmd line
 		_set_mode( MOVE );
+	}
+	if( key == GDK_KEY_p
+			&& event->state == Gdk::CONTROL_MASK )
+	{
+		m_cmdline->show_pre_cmdhist();
+	}
+	if( key == GDK_KEY_n
+			&& event->state == Gdk::CONTROL_MASK )
+	{
+		m_cmdline->show_next_cmdhist();
 	}
 	return false;
 } // }}}
