@@ -7,7 +7,7 @@
 
 EimCmdLine::EimCmdLine()
 {
-	push_history("");
+	push_history(""); // 空の履歴を一つ登録する
 }
 
 EimCmdLine::~EimCmdLine()

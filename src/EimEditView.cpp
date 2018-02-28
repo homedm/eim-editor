@@ -128,8 +128,9 @@ bool EimEditView::read_file( Glib::ustring filename )
 		while ( refChannel->read_line(linebuf) == Glib::IO_STATUS_NORMAL ) filebuf += linebuf;
 		// show text file
 		get_buffer()->set_text(filebuf);
-		Gtk::TextIter iter = get_buffer()->get_insert()->get_iter();
-		iter.set_line(0);
+
+		Gtk::TextIter iter = get_buffer()->begin();
+		get_buffer()->place_cursor(iter);
 	} catch ( const Glib::Exception &e ) {
 		Gtk::MessageDialog( "Failed open the file:" + _get_fname() ).run();
 	}
