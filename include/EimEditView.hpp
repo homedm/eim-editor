@@ -23,6 +23,8 @@ class EimEditView : public Gtk::TextView // {{{
 		EimEditView();
 		virtual ~EimEditView();
 
+		void scroll_adjust( double within_margin=0.05 );
+
 		// カーソル移動
 		bool cur_move_forward();
 		bool cur_move_backward();
@@ -30,7 +32,9 @@ class EimEditView : public Gtk::TextView // {{{
 		bool cur_move_nextline();
 		bool cur_move_forward_word_start();
 		bool cur_move_backward_word_start();
-		void scroll_adjust( double within_margin=0.05 );
+
+		bool cur_move_top();
+		bool cur_move_end();
 
 		// delete
 		void backspace_one_char();

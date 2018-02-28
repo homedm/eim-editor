@@ -58,53 +58,26 @@ bool EimEngine::moveModeKeyPressEvent( GdkEventKey* event ) // {{{
 	}
 	if( key == GDK_KEY_colon
 			&& event->state == Gdk::CONTROL_MASK )
-	{
-		_set_mode( CMD );
-	}
+	{ _set_mode( CMD ); }
 	// the smallest movement {{{
-	if( key == GDK_KEY_h)
-	{
-		// to go left
-		m_editor->cur_move_backward();
-	}
-	if( key == GDK_KEY_j )
-	{
-		// to go down
-		m_editor->cur_move_nextline();
-	}
-	if( key == GDK_KEY_k )
-	{
-		// to go up
-		m_editor->cur_move_preline();
-	}
-	if( key == GDK_KEY_l )
-	{
-		// to go right
-		m_editor->cur_move_forward();
-	}
+	if( key == GDK_KEY_h) { m_editor->cur_move_backward(); }
+	if( key == GDK_KEY_j ) { m_editor->cur_move_nextline(); }
+	if( key == GDK_KEY_k ) { m_editor->cur_move_preline(); }
+	if( key == GDK_KEY_l ) { m_editor->cur_move_forward(); }
 	//}}}
-	// word movement
-	if( key == GDK_KEY_w )
-	{
-		m_editor->cur_move_forward_word_start();
-	}
-	if( key == GDK_KEY_b )
-	{
-		m_editor->cur_move_backward_word_start();
-	}
+	// word movement {{{
+	if( key == GDK_KEY_w ) { m_editor->cur_move_forward_word_start(); }
+	if( key == GDK_KEY_b ) { m_editor->cur_move_backward_word_start(); }
+	// }}}
+	// buffer movement {{{
+	if( key == GDK_KEY_t ) { m_editor->cur_move_top(); }
+	if( key == GDK_KEY_e ) { m_editor->cur_move_end(); }
+	// }}}
 
 	m_editor->scroll_adjust();
 	// delete commands {{{
-	if( key == GDK_KEY_x )
-	{
-		// delete left character on cursor
-		m_editor->backspace_one_char();
-	}
-	if( key == GDK_KEY_d )
-	{
-		// delete right character on cursor
-		m_editor->delete_one_char();
-	}
+	if( key == GDK_KEY_x ) { m_editor->backspace_one_char(); }
+	if( key == GDK_KEY_d ) { m_editor->delete_one_char(); }
 	return true;
 } // }}}
 
@@ -141,23 +114,12 @@ void EimEngine::parseCmdLine(Glib::ustring cmd_text) // {{{
 		cmd.push_back(tmp);
 	}
 
-	if( cmd[0].compare("q") == 0 ) // compareは等しいとき0を返す
-	{
-		exit(0);
-	}
-	if( cmd[0].compare("e") == 0 )
-	{
-		m_editor->read_file(cmd[1]);
-	}
+	if( cmd[0].compare("q") == 0 ) { exit(0); }
+	if( cmd[0].compare("e") == 0 ) { m_editor->read_file(cmd[1]); }
 	if( cmd[0].compare("w") == 0 )
 	{
-		if( cmd[1].length() > 0 ){
-			m_editor->write_file(cmd[1]);
-		}
-		else
-		{
-			m_editor->write_file();
-		}
+		if( cmd[1].length() > 0 ){ m_editor->write_file(cmd[1]); }
+		else { m_editor->write_file(); }
 	}
 
 	_set_mode(MOVE);

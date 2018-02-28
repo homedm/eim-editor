@@ -3,12 +3,12 @@ This is document about Eim editor.
 Eim editor was maked by using gtkmm library in c++ language.
 
 # 追加予定の機能
-w, b : 単語単位の移動
 ^n : 単語補完
 ^k : スニペット挿入
 端末エミュレータ
 シンタックスハイライト
 コード折り畳み
+
 # eim editor
 Express Inside Material Editor
 
