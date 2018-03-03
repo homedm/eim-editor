@@ -2,9 +2,6 @@
 #include <vector>
 #include <memory>
 #include "../include/enum.hpp"
-// #include "../include/EimEditView.hpp"
-// #include "../include/EimCmdLine.hpp"
-// #include "../include/EimEngine.hpp"
 #include "../include/MainWindow.hpp"
 
 int main(int argc, char *argv[])

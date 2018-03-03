@@ -1,3 +1,4 @@
+// MainWindow.cpp --- window class
 #include <gtkmm.h>
 #include <glibmm.h>
 #include "../include/enum.hpp"
@@ -37,7 +38,7 @@ MainWindow::MainWindow()
 	// 可視フレームとタイトルを持ったGtk::Frameに加える
 	add( m_pbox );
 	show_all_children();
-	resize(400, 500); // 初期ウィンドウサイズ
+	resize(500, 400); // 初期ウィンドウサイズ
 	// }}}
 
 	m_eimEngine->sig_mode_changed().connect(
