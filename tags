@@ -51,20 +51,21 @@ _set_mode	src/EimCmdLine.cpp	/^void EimCmdLine::_set_mode(Mode mode){ m_eimEngin
 _set_mode	src/EimEditView.cpp	/^void EimEditView::_set_mode(Mode mode) { m_eimEngine->_set_mode( mode ); }$/;"	f	class:EimEditView
 _set_mode	src/EimEngine.cpp	/^void EimEngine::_set_mode( Mode mode ) {$/;"	f	class:EimEngine
 backspace_one_char	src/EimEditView.cpp	/^void EimEditView::backspace_one_char()$/;"	f	class:EimEditView
+backward_iter	src/EimCmdLine.cpp	/^void EimCmdLine::backward_iter(){$/;"	f	class:EimCmdLine
 base	include/EimCmdLine.hpp	/^		typedef Gtk::Entry base;$/;"	t	class:EimCmdLine
 base	include/EimEditView.hpp	/^		typedef Gtk::TextView base;$/;"	t	class:EimEditView
 cmdlineModeKeyPressEvent	src/EimEngine.cpp	/^bool EimEngine::cmdlineModeKeyPressEvent( GdkEventKey* event ) \/\/ {{{$/;"	f	class:EimEngine
 cur_move_backward	src/EimEditView.cpp	/^bool EimEditView::cur_move_backward()$/;"	f	class:EimEditView
 cur_move_backward_word_start	src/EimEditView.cpp	/^bool EimEditView::cur_move_backward_word_start()$/;"	f	class:EimEditView
+cur_move_end	src/EimEditView.cpp	/^bool EimEditView::cur_move_end()$/;"	f	class:EimEditView
 cur_move_forward	src/EimEditView.cpp	/^bool EimEditView::cur_move_forward()$/;"	f	class:EimEditView
 cur_move_forward_word_start	src/EimEditView.cpp	/^bool EimEditView::cur_move_forward_word_start()$/;"	f	class:EimEditView
 cur_move_nextline	src/EimEditView.cpp	/^bool EimEditView::cur_move_nextline()$/;"	f	class:EimEditView
 cur_move_preline	src/EimEditView.cpp	/^bool EimEditView::cur_move_preline()$/;"	f	class:EimEditView
-delete_history	src/EimCmdLine.cpp	/^void EimCmdLine::delete_history()$/;"	f	class:EimCmdLine
+cur_move_top	src/EimEditView.cpp	/^bool EimEditView::cur_move_top()$/;"	f	class:EimEditView
 delete_one_char	src/EimEditView.cpp	/^void EimEditView::delete_one_char()$/;"	f	class:EimEditView
 editModeKeyPressEvent	src/EimEngine.cpp	/^bool EimEngine::editModeKeyPressEvent( GdkEventKey* event ) \/\/ {{{$/;"	f	class:EimEngine
-get_next_history	src/EimCmdLine.cpp	/^Glib::ustring EimCmdLine::get_next_history()$/;"	f	class:EimCmdLine
-get_pre_history	src/EimCmdLine.cpp	/^Glib::ustring EimCmdLine::get_pre_history()$/;"	f	class:EimCmdLine
+forward_iter	src/EimCmdLine.cpp	/^void EimCmdLine::forward_iter(){$/;"	f	class:EimCmdLine
 m_buffscroll	include/MainWindow.hpp	/^		Gtk::ScrolledWindow m_buffscroll; \/\/ バッファ内スクロールバー$/;"	m	class:MainWindow
 m_cmdhistory	include/EimCmdLine.hpp	/^		std::list<Glib::ustring> m_cmdhistory;$/;"	m	class:EimCmdLine
 m_cmdline	include/EimEngine.hpp	/^		EimCmdLine *m_cmdline;$/;"	m	class:EimEngine
@@ -75,7 +76,7 @@ m_eimEngine	include/EimCmdLine.hpp	/^		EimEngine *m_eimEngine;$/;"	m	class:EimCm
 m_eimEngine	include/EimEditView.hpp	/^		EimEngine *m_eimEngine;$/;"	m	class:EimEditView
 m_eimEngine	include/MainWindow.hpp	/^		EimEngine *m_eimEngine;$/;"	m	class:MainWindow
 m_fname	include/EimEditView.hpp	/^		Glib::ustring m_fname;$/;"	m	class:EimEditView
-m_iter	include/EimCmdLine.hpp	/^		auto m_iter;$/;"	m	class:EimCmdLine
+m_iter	include/EimCmdLine.hpp	/^		std::list<Glib::ustring>::iterator m_iter;$/;"	m	class:EimCmdLine
 m_mode	include/EimEngine.hpp	/^		Mode m_mode;$/;"	m	class:EimEngine
 m_pbox	include/MainWindow.hpp	/^		Gtk::VBox m_pbox; \/\/ 縦にバッファとコマンドラインを並べる$/;"	m	class:MainWindow
 m_sig_mode_changed	include/EimEngine.hpp	/^		SIG_MODE_CHANGED m_sig_mode_changed;$/;"	m	class:EimEngine
@@ -88,9 +89,12 @@ on_key_press_event	src/EimCmdLine.cpp	/^bool EimCmdLine::on_key_press_event( Gdk
 on_key_press_event	src/EimEditView.cpp	/^bool EimEditView::on_key_press_event( GdkEventKey * key_event ) \/\/ {{{$/;"	f	class:EimEditView
 parseCmdLine	src/EimEngine.cpp	/^void EimEngine::parseCmdLine(Glib::ustring cmd_text) \/\/ {{{$/;"	f	class:EimEngine
 procesKeyPressEvent	src/EimEngine.cpp	/^bool EimEngine::procesKeyPressEvent( GdkEventKey* event )$/;"	f	class:EimEngine
-push_back_history	src/EimCmdLine.cpp	/^void EimCmdLine::push_back_history(Glig:ustring cmd)$/;"	f	class:EimCmdLine
+push_history	src/EimCmdLine.cpp	/^void EimCmdLine::push_history(Glib::ustring cmd)$/;"	f	class:EimCmdLine
 read_file	src/EimEditView.cpp	/^bool EimEditView::read_file( Glib::ustring filename )$/;"	f	class:EimEditView
 scroll_adjust	src/EimEditView.cpp	/^void EimEditView::scroll_adjust( double within_margin )$/;"	f	class:EimEditView
+set_iter	src/EimCmdLine.cpp	/^void EimCmdLine::set_iter() { m_iter = m_cmdhistory.begin(); }$/;"	f	class:EimCmdLine
+show_next_cmdhist	src/EimCmdLine.cpp	/^void EimCmdLine::show_next_cmdhist()$/;"	f	class:EimCmdLine
+show_pre_cmdhist	src/EimCmdLine.cpp	/^void EimCmdLine::show_pre_cmdhist()$/;"	f	class:EimCmdLine
 sig_mode_changed	src/EimEngine.cpp	/^SIG_MODE_CHANGED EimEngine::sig_mode_changed() { return m_sig_mode_changed; }$/;"	f	class:EimEngine
 write_file	src/EimEditView.cpp	/^bool EimEditView::write_file( Glib::ustring filename )$/;"	f	class:EimEditView
 write_file	src/EimEditView.cpp	/^bool EimEditView::write_file()$/;"	f	class:EimEditView
