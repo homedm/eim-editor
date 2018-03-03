@@ -18,11 +18,15 @@ class EimEngine : public Gtk::Widget
 		Mode m_mode;
 		EimEditView *m_editor;
 		EimCmdLine *m_cmdline;
+
+		// signal
 		SIG_MODE_CHANGED m_sig_mode_changed;
 
-		bool editModeKeyPressEvent( GdkEventKey* );
-		bool cmdlineModeKeyPressEvent( GdkEventKey*);
-		bool moveModeKeyPressEvent( GdkEventKey* );
+		// command branch
+		// if you add command, you add here function and add each class's member function.
+		bool editModeKeyPressEvent( GdkEventKey* ); // call EimEditView class function
+		bool cmdlineModeKeyPressEvent( GdkEventKey*); // call EimCmdLine class function
+		bool moveModeKeyPressEvent( GdkEventKey* ); // call EimEditView class function
 
 	public:
 		EimEngine();

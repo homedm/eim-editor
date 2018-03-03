@@ -195,6 +195,7 @@ Mode EimEditView::_get_mode() { return m_eimEngine->_get_mode(); }
 void EimEditView::_set_mode(Mode mode) { m_eimEngine->_set_mode( mode ); }
 
 void EimEditView::_set_eimEngine(EimEngine *eimEngine){ m_eimEngine = eimEngine;}
+EimEngine* EimEditView::_get_eimEngine(){ return m_eimEngine; }
 
 Glib::ustring EimEditView::_get_fname() { return m_fname; }
 void EimEditView::_set_fname( Glib::ustring filename ){ m_fname = filename; }

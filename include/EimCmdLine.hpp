@@ -19,7 +19,7 @@ class EimCmdLine : public Gtk::Entry
 		void backward_iter();
 
 		void _set_mode(Mode);
-		Mode _get_mode();
+		Mode _get_mode(void);
 		typedef Gtk::Entry base;
 
 	protected:
@@ -32,8 +32,9 @@ class EimCmdLine : public Gtk::Entry
 		void on_key_press_enter();
 		void show_pre_cmdhist();
 		void show_next_cmdhist();
-		void set_iter();
+		void set_iter(); // no setter
 
 		void _set_eimEngine(EimEngine*);
+		EimEngine* _get_eimEngine(void);
 };
 #endif // INC_EIMENGINE

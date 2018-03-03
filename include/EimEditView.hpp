@@ -23,9 +23,11 @@ class EimEditView : public Gtk::TextView // {{{
 		EimEditView();
 		virtual ~EimEditView();
 
+		// scroll commands {{{
 		void scroll_adjust( double within_margin=0.05 );
+		// }}}
 
-		// カーソル移動
+		// cursor movement commands {{{
 		bool cur_move_forward();
 		bool cur_move_backward();
 		bool cur_move_preline();
@@ -35,20 +37,24 @@ class EimEditView : public Gtk::TextView // {{{
 
 		bool cur_move_top();
 		bool cur_move_end();
+		// }}}
 
-		// delete
+		// delete commands {{{
 		void backspace_one_char();
 		void delete_one_char();
+		// }}}
 
-		// file
+		// file IO
 		bool read_file( Glib::ustring );
 		bool write_file( Glib::ustring );
 		bool write_file();
+
 		// getter and setter {{{
 		Mode _get_mode();
 		void _set_mode(Mode);
 
 		void _set_eimEngine(EimEngine*);
+		EimEngine* _get_eimEngine(void);
 
 		Glib::ustring _get_fname();
 		void _set_fname(Glib::ustring);

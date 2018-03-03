@@ -22,6 +22,7 @@ bool EimCmdLine::on_key_press_event( GdkEventKey * key_event )
 	if( _get_mode() == CMD ) base::on_key_press_event(key_event);
 	return true;
 }
+// signal handler when enter key press on cmd line
 void EimCmdLine::on_key_press_enter()
 {
 	Glib::ustring cmd = get_text();
@@ -58,5 +59,6 @@ void EimCmdLine::push_history(Glib::ustring cmd)
 }
 
 void EimCmdLine::_set_mode(Mode mode){ m_eimEngine->_set_mode(mode); }
-Mode EimCmdLine::_get_mode(){ return m_eimEngine->_get_mode(); }
+Mode EimCmdLine::_get_mode(void){ return m_eimEngine->_get_mode(); }
 void EimCmdLine::_set_eimEngine(EimEngine* eimEngine) { m_eimEngine = eimEngine; }
+EimEngine* EimCmdLine::_get_eimEngine(void){ return m_eimEngine; }

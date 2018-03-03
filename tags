@@ -38,8 +38,10 @@ _INC_EIMENGINE	include/EimEngine.hpp	3;"	d
 _INC_ENUM	include/enum.hpp	2;"	d
 _INC_MAINWINDOW	include/MainWindow.hpp	3;"	d
 _get_eimEditView	src/EimEngine.cpp	/^EimEditView* EimEngine::_get_eimEditView(){ return m_editor; }$/;"	f	class:EimEngine
+_get_eimEngine	src/EimCmdLine.cpp	/^EimEngine* EimCmdLine::_get_eimEngine(void){ return m_eimEngine; }$/;"	f	class:EimCmdLine
+_get_eimEngine	src/EimEditView.cpp	/^EimEngine* EimEditView::_get_eimEngine(){ return m_eimEngine; }$/;"	f	class:EimEditView
 _get_fname	src/EimEditView.cpp	/^Glib::ustring EimEditView::_get_fname() { return m_fname; }$/;"	f	class:EimEditView
-_get_mode	src/EimCmdLine.cpp	/^Mode EimCmdLine::_get_mode(){ return m_eimEngine->_get_mode(); }$/;"	f	class:EimCmdLine
+_get_mode	src/EimCmdLine.cpp	/^Mode EimCmdLine::_get_mode(void){ return m_eimEngine->_get_mode(); }$/;"	f	class:EimCmdLine
 _get_mode	src/EimEditView.cpp	/^Mode EimEditView::_get_mode() { return m_eimEngine->_get_mode(); }$/;"	f	class:EimEditView
 _get_mode	src/EimEngine.cpp	/^Mode EimEngine::_get_mode() { return m_mode; }$/;"	f	class:EimEngine
 _set_cmdline	src/EimEngine.cpp	/^void EimEngine::_set_cmdline( EimCmdLine* cmdline ){ m_cmdline = cmdline; }$/;"	f	class:EimEngine
