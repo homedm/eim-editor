@@ -23,11 +23,9 @@ class EimEditView : public Gtk::TextView // {{{
 		EimEditView();
 		virtual ~EimEditView();
 
-		// scroll commands {{{
 		void scroll_adjust( double within_margin=0.05 );
-		// }}}
 
-		// cursor movement commands {{{
+		// カーソル移動
 		bool cur_move_forward();
 		bool cur_move_backward();
 		bool cur_move_preline();
