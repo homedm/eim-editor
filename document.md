@@ -2,6 +2,10 @@
 This is document about Eim editor.
 Eim editor was maked by using gtkmm library in c++ language.
 
+# eim editor
+Express Inside Material Editor
+like Vi IMproved
+
 # 追加予定の機能
 ^n : 単語補完
 ^k : スニペット挿入
@@ -9,12 +13,8 @@ Eim editor was maked by using gtkmm library in c++ language.
 シンタックスハイライト
 コード折り畳み
 
-# eim editor
-Express Inside Material Editor
-
-like Vi IMproved
-
 # Requirement
+use gtkmm.
 
 # Usage
 ## Move mode
