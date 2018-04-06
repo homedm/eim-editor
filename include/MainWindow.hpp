@@ -17,6 +17,9 @@ class MainWindow : public Gtk::Window // {{{
 
 		void onModeChanged(); // モードが変化したときに呼ばれる
 
+	protected:
+		virtual bool on_button_press_event( GdkEventButton* event );
+
 	private:
 		// widgets {{{
 		EimEditView *m_editor; // buffer
@@ -26,6 +29,7 @@ class MainWindow : public Gtk::Window // {{{
 		Gtk::Label m_stsline; // status line 現在のモード等の情報を表示する
 
 		EimEngine *m_eimEngine;
+		typedef Gtk::Window base;
 		// }}}
 }; // }}}
 

@@ -9,8 +9,10 @@
 
 MainWindow::MainWindow()
 {
-	// キー入力イベントを書き換える
+	// check key press event
 	set_events(Gdk::KEY_PRESS_MASK);
+	// check button click event
+	set_events(Gdk::BUTTON_PRESS_MASK);
 
 	m_editor = new EimEditView;
 	m_cmdline = new EimCmdLine;
@@ -60,7 +62,7 @@ MainWindow::~MainWindow()
 void MainWindow::onModeChanged()
 {
 	Glib::ustring text;
-	switch( m_editor->_get_mode() ){
+	switch( m_eimEngine->_get_mode() ){
 		case CMD:
 			text = "CMD";
 			m_cmdline->set_iter();
@@ -77,4 +79,11 @@ void MainWindow::onModeChanged()
 	}
 
 	m_stsline.set_text(text);
+}
+
+bool MainWindow::on_button_press_event( GdkEventButton* event )
+{
+	base::on_button_press_event( event );
+	m_editor->grab_focus();
+	return true;
 }
