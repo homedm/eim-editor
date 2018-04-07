@@ -18,6 +18,7 @@ class EimEditView : public Gtk::TextView // {{{
 
 	protected:
 		virtual bool on_key_press_event( GdkEventKey* ); // 入力されたキーをEimEngineに渡す
+		virtual bool on_button_press_event( GdkEventButton* );
 
 	public:
 		EimEditView();

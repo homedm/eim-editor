@@ -125,6 +125,12 @@ void EimEngine::parseCmdLine(Glib::ustring cmd_text) // {{{
 	_set_mode(MOVE);
 } // }}}
 
+void EimEngine::returnfocus()
+{
+	m_editor->grab_focus();
+	return;
+}
+
 // setter and getter {{{
 void EimEngine::_set_mode( Mode mode ) {
 	m_mode = mode;

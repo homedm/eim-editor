@@ -58,6 +58,12 @@ void EimCmdLine::push_history(Glib::ustring cmd)
 	m_cmdhistory.push_front(cmd);
 }
 
+bool EimCmdLine::on_button_press_event( GdkEventButton* event )
+{
+	m_eimEngine->returnfocus();
+	return true;
+}
+
 void EimCmdLine::_set_mode(Mode mode){ m_eimEngine->_set_mode(mode); }
 Mode EimCmdLine::_get_mode(void){ return m_eimEngine->_get_mode(); }
 void EimCmdLine::_set_eimEngine(EimEngine* eimEngine) { m_eimEngine = eimEngine; }

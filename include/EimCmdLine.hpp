@@ -24,6 +24,7 @@ class EimCmdLine : public Gtk::Entry
 
 	protected:
 		virtual bool on_key_press_event( GdkEventKey* );
+		virtual bool on_button_press_event( GdkEventButton* );
 
 	public:
 		EimCmdLine();

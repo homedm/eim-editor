@@ -32,6 +32,8 @@ class EimEngine : public Gtk::Widget
 		EimEngine();
 		~EimEngine();
 
+		void returnfocus();
+
 		bool procesKeyPressEvent( GdkEventKey* );
 		void parseCmdLine(Glib::ustring);
 		SIG_MODE_CHANGED sig_mode_changed();

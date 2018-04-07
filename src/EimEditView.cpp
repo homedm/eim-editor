@@ -190,6 +190,12 @@ bool EimEditView::write_file()
 }
 // }}}
 
+bool EimEditView::on_button_press_event( GdkEventButton* event )
+{
+	m_eimEngine->returnfocus();
+	return true;
+}
+
 // setter and getter  {{{
 Mode EimEditView::_get_mode() { return m_eimEngine->_get_mode(); }
 void EimEditView::_set_mode(Mode mode) { m_eimEngine->_set_mode( mode ); }

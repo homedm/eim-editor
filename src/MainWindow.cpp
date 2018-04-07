@@ -80,10 +80,3 @@ void MainWindow::onModeChanged()
 
 	m_stsline.set_text(text);
 }
-
-bool MainWindow::on_button_press_event( GdkEventButton* event )
-{
-	base::on_button_press_event( event );
-	m_editor->grab_focus();
-	return true;
-}

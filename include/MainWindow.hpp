@@ -17,9 +17,6 @@ class MainWindow : public Gtk::Window // {{{
 
 		void onModeChanged(); // モードが変化したときに呼ばれる
 
-	protected:
-		virtual bool on_button_press_event( GdkEventButton* event );
-
 	private:
 		// widgets {{{
 		EimEditView *m_editor; // buffer
